@@ -1,0 +1,53 @@
+<ion-view view-title="Consultation History">
+    <ion-content>
+        <ion-list>
+            <label class="item item-input" ng-hide="photoDetails.skin_type == ''">
+                <span class="input-label">Jenis kulit</span>
+                <input type="text" ng-disabled="true" value="{{photoDetails.skin_type}}">
+            </label>
+            <ion-toggle toggle-class="toggle-calm"
+                ng-model="photoDetails.has_acne"
+                ng-true-value="1"
+                ng-false-value="0"
+                ng-disabled="true">Ada jerawat di wajah</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm"
+                ng-model="photoDetails.has_black_spots"
+                ng-true-value="1"
+                ng-false-value="0"
+                ng-disabled="true">Ada flek hitam/coklat</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm"
+                ng-model="photoDetails.is_gastritis"
+                ng-true-value="1"
+                ng-false-value="0"
+                ng-disabled="true">Ada riwayat sakit maag</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm"
+                ng-model="photoDetails.is_topical_drug_allergy"
+                ng-true-value="1"
+                ng-false-value="0"
+                ng-disabled="true">Alergi obat oles kulit</ion-toggle>
+            <ion-toggle toggle-class="toggle-calm"
+                ng-model="photoDetails.is_oral_drug_allergy"
+                ng-true-value="1"
+                ng-false-value="0"
+                ng-disabled="true">Alergi obat cair</ion-toggle>
+            <label class="item item-input" ng-hide="photoDetails.menstrual_cycle == ''">
+                <span class="input-label">Siklus menstruasi</span>
+                <input type="text" ng-disabled="true" value="{{photoDetails.menstrual_cycle}}">
+            </label>
+        </ion-list>
+        <div class="card" ng-show="photoDetails.complaint">
+          <div class="item">
+            Komplain
+          </div>
+          <div class="item item-text-wrap" style="border: none">
+            <p>{{photoDetails.complaint}}</p>
+          </div>
+        </div>
+        <div class="list card" ng-repeat="image in photoDetails.consultation_images" ng-show="image.image">
+          <div class="item">{{image.image_type.replace('_', ' ').toUpperCase()}}</div>
+          <div class="item item-image">
+            <img ng-src="https://klinikestetika.com/{{image.image}}" style="width:100%" />
+          </div>
+        </div>
+    </ion-content>
+</ion-view>

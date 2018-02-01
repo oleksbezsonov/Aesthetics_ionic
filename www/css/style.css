@@ -1,0 +1,91 @@
+/* Empty. Add your own CSS if you like */
+body, .ionic-body {font-size: 16px;}
+a {color:#2f3a79;}
+input[type="text"]{color:#2f3a79;}
+html input[disabled]{background-color: #fff;}
+.bar .title {font-size: 1.4em;}
+.bar.bar-calm{background-color: #2f3a79;}
+.button.button-balanced{background-color: #ffffff; color: #000000;border: 2px solid #000000;}
+.button.button-balanced.active, .button.button-balanced.activated {background-color: #03a688; color: #ffffff;border-color: #333333;}
+.button.button-full.button-payment{border-color: #00b07d;background-color: #00b07d;}
+.menu{background-color: #2f3a79; color: #ffffff;}
+.menu-text{font-weight: bold;}
+.button.button-block, .button.button-full{border-color: transparent; background-color: #2f3a79; color: #ffffff;}
+.calm, a.calm{color: #2f3a79;}
+.positive, a.positive {color: #2f3a79;}
+.product-default {max-width: 50px;max-height: 160px;}
+.ribbon{z-index:99999;float: left; position: absolute;}
+.text-left {text-align: left;}
+.text-center{text-align: center;}
+.title-white{text-align: center;font-weight: bold;margin-left: 30%;font-size: 1.2em;}
+.slider { width: 100%; min-height: 126px;}
+.item p {font-size: 1em; margin-bottom: 1.5em;}
+.item-text-wrap p {margin-bottom: 1.5em; color: #333;}
+.list-text {margin-left: 2em; }
+.list-text li {font-size: 1em; margin-bottom: 0.5em;}
+ol.list-text {list-style-type: decimal;}
+ol.list-text-alpha{list-style-type: lower-alpha;margin-left: 30px;}
+h2.title.title-left{font-size: 1.1em;}
+.image-content{max-width: 100%; float: left; margin-right: 20px;}
+#home .image {text-align: center;}
+#home .thumb {max-width: 100px;}
+#home h2 {margin-bottom: 1em;}
+#article p {font-size: 1em;color:#333;text-align: left;}
+#article .input-label {font-size: 1.2em; font-weight: bold; color: #fff;}
+.articles-content{margin-top:40px;}
+.article{margin-bottom:5px;}
+.meta-article span{font-size:0.8em;margin-left:12px;text-transform:uppercase;color:#999;font-style:italic;}
+.title-article {font-size: 1.3em;color:#2f3a79;margin-bottom: 0.5em;padding: 10px;line-height: 1.1em;}
+.title-headline-article{font-size: 1.2em;color:#fff;background-color:#2f3a79;margin-bottom:0.5em;padding:10px;min-height:60px; }
+.content-article{margin:1em 0 3em 0;}
+#products .input-label {font-size: 1.2em; font-weight: bold; color: #fff;}
+#products .payment-label{font-size: 1.2em; font-weight: bold;color: #000;}
+em {font-style: italic; font-size: 1em;}
+.tabs-positive > .tabs, .tabs.tabs-positive {background-color: #03a688; border-color: #03a688; }
+.tab-title {color: #fff; font-size: 1.2em; font-weight: bold;}
+.bar-subheader {background-color: #03a688;}
+.item-input-wrapper.item-select {background-color: #03a688;}
+.begin-product {float: left;}
+.item {white-space: normal;}
+.item-body{padding: 0;}
+.item.item-calm {background-color: #2f3a79;border-color: #2f3a79;}
+.toggle.toggle-calm input:checked + .track {background-color: #2f3a79;border-color: #2f3a79;}
+h2.logged-in, p.logged-in {color: #fff;}
+p.logged-in{font-style: italic;font-weight: normal;}
+#article ol {margin-left: 20px; list-style-type: decimal;}
+#article ul {margin-left: 20px; list-style-type: disc;}
+.profilePicture{ max-width:180px; max-height: 180px; border: 1px solid #ccc; border-radius: 50%; box-shadow: 0 0 5px gray; display: inline-block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;}
+.title-product, .meta-product{font-size: 1.2em;color:#333;margin-bottom: 0.5em;}
+.title-product h2 {color:#fff;font-size:1.2em;background-color: #03a688;margin-bottom: 0.5em;padding: 10px;}
+.product-list{margin-top: 3em;}
+.bar-footer {height: 80px;}
+.buy-button{height: 56px;}
+.button-clear{padding:0;}
+.item-input input, .item-input textarea{padding: 10px;background-color: #ddd;width: 96%;}
+.pricing{margin-bottom:120px; }
+.button.button-calm{background-color:#e42c52; border-radius: 10px;}
+.cart-info{margin-left: 20px;}
+.home-contents{background:#fff url('../images/content-bg.jpg') repeat-y right top; background-size:100%;}
+.row {flex-wrap: wrap;}
+.product-link {display: inline-block; margin-bottom: 8px; width: calc(50% - 4px); margin-right: 8px; text-decoration: none; color:#000;}
+.product-link:nth-of-type(2n) {margin-right: 0;}
+.product-card {margin: 0; overflow: hidden;display: flex;flex-wrap: wrap;}    
+.product-image-thumb {z-index: 99; border: none; width: 100%; height: auto; display: block; background: #ccc; transition: transform .2s ease-in-out;}
+.service-image{max-width: 100%; max-height:250px; }
+.services-content{margin-top: 90px;}
+.service-body p {font-weight: normal;}
+.service-body h2 {font-size:1.3em;font-weight: bold; text-transform: uppercase;color: #fff; background-color: #2f3a79;padding: 5px 10px;}
+.item-icon-left{color:#fff;background-color: #00b07d;}
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="date"], input[type="number"] textarea {width: 95%;}
+.assertive-bg{background-color: #f00;}
+input.total_price{font-size: 1.2em;font-weight: bold;}
+@media screen and (min-width: 768px) {
+    .slider { width: 100%; min-height: 260px;}
+    .responsive-md .col {max-width: 25%; width: 25%;}
+}
+@media screen and (min-width: 50em) {
+    .product-link {width: calc(25% - 6px);}    
+    .product-link:nth-of-type(2n) {margin-right: 8px;}    
+    .product-link:nth-of-type(4n) {margin-right: 0;}
+}
+  

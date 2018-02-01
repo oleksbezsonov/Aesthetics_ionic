@@ -1,0 +1,84 @@
+<!-- <ion-view view-title="New Consultation" id="consultation" ng-controller="consultation_page1"> -->
+<ion-view cache-view="false" view-title="New Consultation" ng-controller="consultation_page1">
+  <ion-content>
+
+	<form id="photo-consult-form" name="photoform" novalidate>
+		<ion-list>
+			<ion-item class="item-divider">
+				Apa jenis kulit Anda? <span class="assertive">*</span> <span ng-show="photoform.$submitted && photoform.jenisKulit.$error.required" class="assertive">(harap diisi)</span>
+			</ion-item>
+			<ion-radio name="jenisKulit" ng-model="consultation.jenisKulit" ng-repeat="item in jenisKulit" ng-value="'{{item}}'" ng-required="true">{{item}}</ion-radio>
+			<br />
+			<ion-toggle
+				toggle-class="toggle-calm"
+				ng-model="consultation.jerawat"
+				ng-true-value="'{{jerawat[0]}}'"
+				ng-false-value="'{{jerawat[1]}}'"
+				ng-checked="false" required>Ada jerawat di wajah</ion-toggle>
+			<ion-toggle toggle-class="toggle-calm"
+				ng-model="consultation.flek"
+				ng-true-value="'{{flek[0]}}'"
+				ng-false-value="'{{flek[1]}}'"
+				ng-checked="false" required>Ada flek hitam/coklat</ion-toggle>
+			<ion-toggle toggle-class="toggle-calm"
+				ng-model="consultation.riwayatPenyakit"
+				ng-true-value="'{{riwayatPenyakit[0]}}'"
+				ng-false-value="'{{riwayatPenyakit[1]}}'"
+				ng-checked="false" required>Ada riwayat sakit maag</ion-toggle>
+			<ion-toggle toggle-class="toggle-calm"
+				ng-model="consultation.alergiObatOles"
+				ng-true-value="'{{alergiObatOles[0]}}'"
+				ng-false-value="'{{alergiObatOles[1]}}'"
+				ng-change="checkChoice(consultation.alergiObatOles)"
+				ng-checked="false" required>Alergi obat oles kulit</ion-toggle>
+			<div ng-show="checkChoice(consultation.alergiObatOles)">
+				<ion-item class="item-divider">
+					Jenis obat oles <span ng-show="photoform.isiAlergiObatOles.$error.required && checkChoice(consultation.alergiObatOles)" class="assertive">(harap diisi)</span>
+				</ion-item>
+				<ion-input class="item item-input item-floating-label">
+					<textarea name="isiAlergiObatOles" type="text" ng-model="consultation.isiAlergiObatOles" ng-required="checkChoice(consultation.alergiObatOles)"></textarea>
+				</ion-input>
+				<br />
+			</div>
+			<ion-toggle toggle-class="toggle-calm"
+				ng-model="consultation.alergiObatCair"
+				ng-true-value="'{{alergiObatCair[0]}}'"
+				ng-false-value="'{{alergiObatCair[1]}}'"
+				ng-change="checkChoice(consultation.alergiObatCair)"
+				ng-checked="false" required>Alergi obat cair</ion-toggle>
+			<div ng-show="checkChoice(consultation.alergiObatCair)">
+				<ion-item class="item-divider">
+					Jenis obat cair <span ng-show="photoform.isiAlergiObatCair.$error.required && checkChoice(consultation.alergiObatCair)" class="assertive">(harap diisi)</span>
+				</ion-item>
+				<ion-input class="item item-input item-floating-label">
+					<textarea name="isiAlergiObatCair" type="text" ng-model="consultation.isiAlergiObatCair" ng-required="checkChoice(consultation.alergiObatCair)"></textarea>
+				</ion-input>
+				<br />
+			</div>
+			<div ng-show="jenKel == 'P'">
+				<br ng-hide="checkChoice(consultation.alergiObatCair)" />
+				<ion-item class="item-divider">
+					Status kehamilan dan menstruasi <span class="assertive">*</span> <span ng-show="photoform.$submitted && photoform.khususwanita.$error.required && jenKel == 'P'" class="assertive">(harap diisi)</span>
+				</ion-item>
+				<ion-radio name="khususwanita" ng-model="consultation.khususWanita" ng-repeat="item in khususWanita" ng-value="'{{item}}'" ng-required="jenKel == 'P'">{{item}}</ion-radio>
+				<br />
+			</div>
+			<ion-item class="item-divider">Tuliskan keluhan Anda di sini</ion-item>
+			<ion-input class="item item-input item-floating-label">
+				<textarea type="text" ng-model="consultation.keluhan" placeholder="contoh: jerawat dimana-mana"></textarea>
+			</ion-input>
+			<br />
+		</ion-list>
+  	   <div class="row button-consult">
+         <button type="submit" class="button button-block button-balanced" ng-click="confirmation()">
+           Next <i class="icon ion-arrow-right-c"></i>
+         </button>
+       </div>
+	</form>
+	<!-- <div class="row button-consult">
+         <button class="button button-block button-balanced" ng-click="confirmation()">
+           Next <i class="icon ion-arrow-right-c"></i>
+         </button>
+       </div> -->
+  </ion-content>
+</ion-view>

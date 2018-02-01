@@ -1,0 +1,38 @@
+<ion-view view-title="{{data.title}}" id="article">
+  <ion-content lazy-scroll>
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshDetailArticle()">
+    </ion-refresher>
+
+
+<!-- Start Post Content -->
+    <div class="begin-post article">
+
+<!-- Thumbnail Image -->
+      <div class="thumbnail-article">
+          <img class="full-image" ng-show="isContainImage" image-lazy-src="{{data.image}}" image-lazy-loader="dots">
+      </div>
+
+<!-- Title Article -->
+      <div style="padding:5px 10px;">
+        <div class="title-article"><b>{{data.title}}</b></div>
+
+<!-- Meta Content -->
+        <div class="meta-article">
+          <span>
+            <i class="icon ion-calendar"></i>{{date}}
+          </span>
+          <span>
+            <i class="icon ion-ios-pricetag"></i>{{data.name}}
+          </span>
+        </div>
+
+<!-- Content -->
+        <hr>
+        <div ng-bind-html="hrefToJS(content)" style="text-align:justify;padding:10px 0px"></div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

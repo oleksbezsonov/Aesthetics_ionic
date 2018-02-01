@@ -1,0 +1,55 @@
+<ion-view view-title="Articles" id="article">
+	<div class="bar bar-subheader item-input-inset">
+		<label class="item-input-wrapper item-select">
+            <div class="input-label">
+                Kategori
+            </div>
+            <select ng-model="category" ng-options="a.id as a.name for a in categories" ng-change="categoryChange(category)">
+            </select>
+        </label>
+	</div>
+	<ion-content class="pd-t-40" lazy-scroll>
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshArticle()">
+		</ion-refresher>
+		<!-- <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Kategori
+                </div>
+                <select ng-model="category" ng-options="a.id as a.name for a in categories" ng-change="categoryChange(category)"></select>
+            </label>
+        </div> -->
+		<!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshArticle()"></ion-refresher> -->
+		<!-- Start Post Content -->
+		<!-- <div class="row responsive-md" style="display: flex; flex-wrap:wrap"> -->
+
+		<div class="row responsive-md articles-content">
+			<!-- <div class="card item begin-post article" ng-repeat="article in articles" ui-sref="#app/article/detail/{{article.id}}/{{article.updated_at}}"> -->
+
+			<div class="card begin-post article col col-33" ng-repeat="article in articles" ui-sref="app.article_detail({article_id: article.id, article_date: article.updated_at})">
+				<div class="thumbnail-article">
+					<img class="full-image" ng-show="article.isContainImage" image-lazy-src="{{article.image}}" image-lazy-loader="dots">
+				</div>
+				<div style="padding:5px 10px">
+					<div class="title-article"><b>{{article.title}}</b></div>
+					<!-- Meta Content -->
+					<div class="meta-article">
+						<span>
+                            <i class="icon ion-calendar"></i>{{article.updated_at}}
+                        </span>
+						<span>
+                            <i class="icon ion-ios-pricetag"></i><span style="text-transform:capitalize">{{article.name}}</span>
+						</span>
+					</div>
+					<!-- Exce Content -->
+					<div ng-bind-html="article.content" style="white-space:normal">...</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- </div> -->
+		<!-- infinite scroll -->
+		<ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>

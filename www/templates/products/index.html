@@ -1,0 +1,47 @@
+<ion-view view-title="Products" id="products">
+	<ion-nav-buttons side="right">
+		<button class="button button-icon icon ion-ios-search-strong" ng-click="showFilterBar()"></button>
+	</ion-nav-buttons>
+	<div class="bar bar-subheader item-input-inset" ng-hide="states.searched">
+		<label class="item-input-wrapper item-select">
+            <div class="input-label">
+                Kategori
+            </div>
+            <select ng-model="category" ng-options="a.id as a.name for a in categories" ng-change="categoryChange(category)">
+            </select>
+        </label>
+	</div>
+	<ion-content ng-class="{'pd-t-40': !states.searched}" lazy-scroll>
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshProduct()">
+		</ion-refresher>
+		<!-- <div class="list category">
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Kategori
+            </div>
+            <select ng-model="category" ng-options="a.id as a.name for a in categories" ng-change="categoryChange(category)">
+            </select>
+        </label>
+    </div> -->
+
+		<ion-list class="row responsive-md">
+			<!-- <ion-item ng-repeat="product in products | orderBy:'-is_otc'" href="#/app/product/detail/{{product.id}}" class="begin-product"> -->
+			<ion-item ng-repeat="product in products" href="#/app/product/detail/{{product.id}}" class="begin-product col col-25">
+				<div class="thumbnail-product">
+					<img ng-if="product.is_otc == 0" ng-src="images/ribon.png" alt="" class="ribbon">
+					<img style="width:100%" image-lazy-src="https://klinikestetika.com/{{product.image}}" image-lazy-loader="dots">
+				</div>
+				</div>
+				<div class="meta-product">
+					<b>{{ product.title }}</b>
+				</div>
+			</ion-item>
+		</ion-list>
+
+		<div ng-if="(!products.length && states.searched) || loading" class="no-results">
+			<!-- <div ng-hide="!products.length && states.searched || loading" class="no-results"> -->
+			<p class="mg-t-40 text-center">No Results for <strong>{{filterText}}</strong></p>
+		</div>
+		<ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>

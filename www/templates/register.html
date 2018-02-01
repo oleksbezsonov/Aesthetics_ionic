@@ -1,0 +1,124 @@
+<ion-modal-view id="register">
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeRegister()">
+                <i class="icon ion-ios-close-empty"></i>
+            </button>
+        </div>
+        <h1 class="title">Create New Account</h1>
+    </ion-header-bar>
+
+    <ion-content>
+        <form id="register-form" name="form" novalidate>
+        <div class="list">
+
+            <!-- Full Name -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Full Name <span style="color:red">*</span></span>
+                <input type="text" ng-model="registerData.full_name" name="fullName" placeholder="John" required="">
+                <div ng-show="form.$submitted || form.fullName.$touched">
+                  <div class="assertive" ng-show="form.fullName.$error.required">Tell us your full name.</div>
+                </div>
+            </label>
+
+
+            <!-- Gender -->
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">Gender <span style="color:red">*</span></span>
+
+                <label class="item item-select">
+                    <select ng-model="registerData.gender" name="gender" required="">
+                        <option ng-model="registerData.gender" value="L">Male</option>
+                        <option ng-model="registerData.gender" value="F">Female</option>
+                    </select>
+                </label>
+                <div ng-show="form.$submitted || form.gender.$touched">
+                  <div class="assertive" ng-show="form.gender.$error.required">Tell us your gender.</div>
+                </div>
+            </div>
+
+
+            <!-- Phone Number -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Phone Number <span style="color:red">*</span></span>
+                <input type="tel" ng-model="registerData.phone" name="phoneNumber" placeholder="(+62)" ng-minlength="10" ng-maxlength="12" required>
+                <div ng-show="form.$submitted || form.phoneNumber.$touched">
+                  <span class="assertive" ng-show="form.phoneNumber.$error.required">Tell us your phone number. </span>
+                  <span class="assertive" ng-show="form.phoneNumber.$error.number">Tell us your valid phone number. </span>
+                  <span class="assertive" ng-show="(form.phoneNumber.$error.minlength && form.phoneNumber.$dirty)">phone number should be 10 digits minimal. </span>
+                  <span class="assertive" ng-show="(form.phoneNumber.$error.maxlength && form.phoneNumber.$dirty)">phone number should be 12 digits maximal. </span>
+                </div>
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Date of birth <span style="color:red">*</span></span>
+                <input type="date" min="1980-01-01" max="{{maxDob}}" ng-model="registerData.dob" name="dob" required>
+                <div ng-show="form.$submitted || form.dob.$touched">
+                    <div class="assertive" ng-show="form.dob.$error.required">Tell us your date of birth.</div>
+                </div>
+            </label>
+            <!-- Email -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Email address<span style="color:red">*</span></span>
+                <input type="email" ng-model="registerData.email" placeholder="" name="email" required>
+                <div ng-show="form.$submitted || form.email.$touched">
+                  <div class="assertive" ng-show="form.email.$error.required">Tell us your email address.</div>
+                  <div class="assertive" ng-show="form.email.$error.email">Tell us your valid email address.</div>
+                </div>
+            </label>
+
+
+            <!--Password -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Password <span style="color:red">*</span></span>
+                <input type="password" ng-model="registerData.password" placeholder="" name="password" required>
+                <div ng-show="form.$submitted || form.password.$touched">
+                    <div class="assertive" ng-show="form.password.$error.required">Tell us your password.</div>
+                </div>
+            </label>
+
+
+            <!-- Password2 -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Retype Password <span style="color:red">*</span></span>
+                <input type="password" ng-model="registerData.passwordConfirmation" placeholder="" name="confirmPassword" required>
+                <div ng-show="form.$submitted || form.confirmPassword.$touched">
+                    <div class="assertive" ng-show="form.confirmPassword.$error.required">Tell us your password again.</div>
+                </div>
+            </label>
+
+
+            <ion-toggle ng-model="registerData.is_old_patient" toggle-class="toggle-calm" ng-true-value="1" ng-false-value="0" name="old_patient">
+                <span class="settings-item__text">
+                    I'am an old patient <span style="color:red">*</span></span>
+                </span>
+            </ion-toggle>
+
+                <!-- <div class="row" style="margin-left:-10px">
+                    <div class="col">
+                        <label class="item item-radio">
+                            <input type="radio" value="1" ng-model="registerData.is_old_patient" name="old_patient">
+                            <div class="item-content">Yes</div>
+                            <i class="radio-icon ion-ios-checkmark-outline"></i>
+                        </label>
+                    </div>
+
+                    <div class="col">
+                        <label class="item item-radio">
+                            <input type="radio" value="0"  ng-model="registerData.is_old_patient" name="old_patient">
+                            <div class="item-content">No</div>
+                            <i class="radio-icon ion-ios-checkmark-outline"></i>
+                        </label>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="padding">
+                <button class="button button-block button-outline button-positive" ng-click="registerAccount()" type="submit">
+                    Register
+                </button>
+            </div>
+        </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

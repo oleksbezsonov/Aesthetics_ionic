@@ -1,0 +1,43 @@
+<ion-view view-title="My Orders" id="orders">
+  <ion-content>
+   <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshOrders()">
+  </ion-refresher>
+	<!-- fetching rows is null -->
+	<div class="padding" ng-if="total == 0 && is_loading == 0">
+		<div class="panel-assertive">
+			<h5>
+				Halo {{full_name}}, Anda belum memulai apapun. Silahkan
+				mulai berbelanja dengan menekan tombol dibawah ini	
+			</h5>
+			<div class="button button-small button-block button-positive" href="#/app.product">
+				Belanja
+			</div>
+		</div>
+	</div>
+
+	<ion-list class="orders-order">
+		  	<ion-item ng-repeat="order in orders" ui-sref="app.orders_detail({'order_no':'{{order.order_no}}'})">
+				<div class="row orders-item">
+					<div class="col col-75">
+						<h2>#{{order.order_no}}</h2>
+						<p><i class="ion-ios-calendar"></i> {{order.created_at}}</p>
+						<p class="text-assertive" ng-if="order.status == 'DIBATALKAN'">{{order.status}}</p>
+						<p class="text-energized" ng-if="order.status == 'BELUM DITERIMA'">{{order.status}}</p>
+						<p class="text-balanced" ng-if="order.status == 'MENUNGGU PEMBAYARAN'">{{order.status}}</p>
+					</div>
+	
+					<div class="col">
+						<div class="price"><b>{{order.total_price}}</b></div>
+					</div>
+					<i class="ion-ios-arrow-right arrow"></i>
+					
+					</div>
+				</div>
+			</ion-item>
+	</ion-list>
+	<ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%">
+  	</ion-infinite-scroll>
+  </ion-content>
+</ion-view>

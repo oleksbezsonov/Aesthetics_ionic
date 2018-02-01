@@ -1,0 +1,79 @@
+<ion-view cache-view="false" view-title="Photos" ng-controller="consultation_page2">
+  <ion-content>
+  	<div class="card">
+  		<div class="item item-icon-left item-text-wrap calm-bg light ">
+			<i class="icon ion-ios-information-outline"></i> Klik icon untuk mengunggah foto
+		</div>
+  	</div>
+  	<div class="list">
+	  <div class="item">
+	    Foto Wajah Tampak Depan <span class="assertive">*</span>
+	  </div>
+	  <div class="item item-text-wrap" style="border-top:none;padding-top:0">
+	  	  <div class="row responsive-sm">
+			<div class="col">
+		  		<!-- <img class="col-50" id="consultationPicture1" ng-src="images/user-default.png"> -->
+		  		<img id="consultationPicture1" class="full-image" ng-src="images/user-default.png" ng-click="getConsultationPicture(1)">
+		  	</div>
+
+			<!-- <label class="item">
+			     <button class="button button-block button-positive" ng-click="getConsultationPicture(1)">Tambah Gambar</button>
+			</label> -->
+
+		  </div>
+	  </div>
+  	  <div class="item">
+	    Foto Wajah Tampak Kiri <span class="assertive">*</span>
+	  </div>
+	  <div class="item item-text-wrap" style="border-top:none;padding-top:0">
+	  	  <div class="row responsive-sm">
+			<div class="col">
+		  		<!-- <img class="col-50" id="consultationPicture2" ng-src="images/user-default.png"> -->
+		  		<img class="full-image" id="consultationPicture2" ng-src="images/user-default.png" ng-click="getConsultationPicture(2)">
+		  	</div>
+
+			<!-- <label class="item">
+			     <button class="button button-block button-positive" ng-click="getConsultationPicture(2)">Tambah Gambar</button>
+			</label> -->
+
+		  </div>
+	  </div>
+	  <div class="item">
+	    Foto Wajah Tampak Kanan <span class="assertive">*</span>
+	  </div>
+	  <div class="item item-text-wrap" style="border-top:none;padding-top:0">
+	  	  <div class="row responsive-sm">
+			<div class="col">
+		  		<!-- <img class="col-50" id="consultationPicture3" ng-src="images/user-default.png"> -->
+		  		<img class="full-image" id="consultationPicture3" ng-src="images/user-default.png" ng-click="getConsultationPicture(3)">
+		  	</div>
+
+			<!-- <label class="item">
+			     <button class="button button-block button-positive" ng-click="getConsultationPicture(3)">Tambah Gambar</button>
+			</label> -->
+
+		  </div>
+	  </div>
+	  <div class="item">
+	    Foto Keluhan Lain (Jika Ada)
+	  </div>
+	  <div class="item item-text-wrap" style="border-top:none;padding-top:0">
+	  	  <div class="row responsive-sm">
+			<div class="col">
+		  		<!-- <img class="col-50" id="consultationPicture4" ng-src="images/user-default.png"> -->
+		  		<img class="full-image" id="consultationPicture4" ng-src="images/user-default.png" ng-click="getConsultationPicture(4)">
+		  	</div>
+
+			<!-- <label class="item">
+			     <button class="button button-block button-positive" ng-click="getConsultationPicture(4)">Tambah Gambar</button>
+			</label> -->
+
+		  </div>
+	  </div>
+	  <div class="row">
+	  	<button class="button button-block button-positive" ng-click="finishConsultation()">Selesai</button>
+	  </div>
+	</div>
+
+  </ion-content>
+</ion-view>

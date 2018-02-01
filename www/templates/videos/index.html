@@ -1,0 +1,33 @@
+<ion-view cache-view="false" view-title="Video Consultation" id="video-consultation">
+  <ion-content style="margin-bottom:0px;padding-bottom:0px;">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshAvailableSessions()"></ion-refresher>
+    <ion-list ng-show="bookedSessionData">
+      <ion-item class="item-divider">My Booking</ion-item>
+      <ion-item class="item-button-right" ng-click="readyToConsultation(bookedSessionData)">
+        <h2>{{bookedSessionData.date}}</h2>
+        <p>{{bookedSessionData.start_time}} - {{bookedSessionData.end_time}} {{bookedSessionData.time_remaining}}</p>
+        <button class="button button-assertive" ng-click="cancelBook($event)">
+            Cancel
+          </button>
+      </ion-item>
+      <br />
+    </ion-list>
+    <ion-list>
+      <ion-item class="item-divider">Available bookings</ion-item>
+      <div ng-repeat="item in availableSessions">
+        <ion-item class="item-stable" ng-click="toggleGroup(item)" ng-class="{active: isGroupShown(item)}">
+          <i class="icon" ng-class="isGroupShown(item) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{item.date}}
+        </ion-item>
+        <ion-item ng-repeat="session in item.sessions" ng-show="isGroupShown(item)" class="item-button-right">
+          <h2>{{session.start_time}} - {{session.end_time}}</h2>
+          <p>{{session.status}}</p>
+          <button class="button button-positive" ng-click="book(session)" ng-hide="isSessionFinished(session)">
+            Book
+          </button>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

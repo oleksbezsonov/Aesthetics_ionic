@@ -1,0 +1,19 @@
+<ion-view view-title="Promo" id="home">
+	<ion-content lazy-scroll>
+		<div class="list">
+			<a class="card item begin-post article" ng-repeat="banner in banners" ng-click="loadArticle({{banner}})">
+				<div class="thumbnail-article">
+					<img style="max-width: 100%;min-height: 160px;object-fit: cover;" image-lazy-src="https://klinikestetika.com/{{ banner.image }}" image-lazy-loader="dots">
+				</div>
+				<div style="padding:5px 10px">
+					<div class="title-article"><b>{{banner.title}}</b></div>
+					<div class="meta-article">
+						<span>
+              <i class="icon ion-calendar"></i>{{banner.updated_at}}
+            </span>
+					</div>
+				</div>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

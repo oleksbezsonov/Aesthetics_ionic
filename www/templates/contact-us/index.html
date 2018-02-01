@@ -1,0 +1,41 @@
+<ion-view cache-view="false" view-title="Contact Us">
+	<ion-content>
+        <form id="contact-us-form" name="cuform" novalidate>
+            <ion-list>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Nama Lengkap <span class="assertive">*</span></span>
+                    <input type="text" ng-model="contactUsData.name" name="fullName" required="">
+                    <div ng-show="cuform.$submitted || cuform.fullName.$touched">
+                        <div class="assertive" ng-show="cuform.fullName.$error.required">Mohon isi Nama Lengkap Anda.</div>
+                    </div>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email<span style="color:red">*</span></span>
+                    <input type="email" ng-model="contactUsData.email"name="email" required>
+                    <div ng-show="cuform.$submitted || cuform.email.$touched">
+                      <div class="assertive" ng-show="cuform.email.$error.required">Mohon isi alamat Email Anda.</div>
+                      <div class="assertive" ng-show="cuform.email.$error.email">Mohon isi alamat Email Anda yang valid.</div>
+                    </div>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Judul <span class="assertive">*</span></span>
+                    <input type="text" ng-model="contactUsData.subject" name="subject" required="">
+                    <div ng-show="cuform.$submitted || cuform.subject.$touched">
+                      <div class="assertive" ng-show="cuform.subject.$error.required">Mohon isi Judul.</div>
+                    </div>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Pesan <span class="assertive">*</span></span>
+                    <textarea msd-elastic="\n" ng-model="contactUsData.message" name="message" ng-minlength="50" required=""></textarea>
+                    <div ng-show="cuform.$submitted || cuform.message.$touched">
+                      <div class="assertive" ng-show="cuform.message.$error.required">Mohon isi Pesan Anda.</div>
+                      <div class="assertive" ng-show="cuform.message.$error.minlength">Pesan Anda harus minimal 50 karakter.</div>
+                    </div>
+                </label>
+            </ion-list>
+            <div class="row">
+                <button type="submit" ng-click="submitMessage()" ng-disabled="cuform.$invalid" class="button button-balanced button-block">Submit</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

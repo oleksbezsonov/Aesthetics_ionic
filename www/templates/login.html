@@ -1,0 +1,39 @@
+<ion-modal-view id="login">
+
+
+    <ion-header-bar class="bar bar-calm">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeLogin()">
+                <i class="icon ion-ios-close-empty"></i>
+            </button>
+        </div>
+        <h1 class="title">Login</h1>
+    </ion-header-bar>
+
+    <ion-content>
+
+
+        <form ng-submit="doLogin()">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" ng-model="loginData.email" placeholder="Email">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" ng-model="loginData.password" placeholder="Password">
+                </label>
+            </div>
+            <div class="padding">
+                <button class="button button-outline-black button-block" type="submit">Login</button>
+            </div>
+        </form>
+
+            <button class="button button-positive button-clear button-block" ng-click="register()" style="text-transform:inherit">
+              <span style="color:black">Belum punya akun?</span> Daftar di sini
+            </button>
+
+
+
+    </ion-content>
+</ion-modal-view>

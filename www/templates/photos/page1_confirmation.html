@@ -1,0 +1,33 @@
+<ion-modal-view id="login">
+
+
+    <ion-header-bar class="bar bar-calm">
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeConfirmation()">
+                <i class="icon ion-ios-close-empty"></i>
+            </button>
+            <h1 class="title">Konfirmasi</h1>
+        </div>
+    </ion-header-bar>
+
+    <ion-content>
+
+
+        <form ng-submit="CheckPilihan()">
+            <div class="list">
+                <p>Apakah Anda Yakin?</p>
+            </div>
+            <div class="padding">
+                <button class="button button-outline-black button-block" type="submit">Ya</button>
+            </div>
+             <div class="padding">
+                <a class="button button-outline-black button-block" ng-click="closeConfirmation()">Tidak</a>
+            </div>
+        </form>
+        
+        
+                
+
+
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,23 @@
+{
+  "name": "opentok",
+  "authors": [
+    "krishna rokhale <krishna.rokhale@gmail.com>"
+  ],
+  "description": "Bower package to install opentok.js",
+  "main": "opentok.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "opentok"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/krokhale/bower-opentok.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

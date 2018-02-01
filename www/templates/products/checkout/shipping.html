@@ -1,0 +1,142 @@
+<ion-view cache-view="false" view-title="Pengiriman" id="products">
+	<ion-content class="products-shipping-start">
+		<div class="list form payment" ng-if="!mobile_session">
+<!-- Full Name -->
+            <div class="padding">
+                Sudah Punya Akun? Login Untuk Mempercepat Belanja Anda
+                <button class="button button-positive button-block" ng-click="login()">Login</button>
+            </div>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Full Name <span style="color:red">*</span></span>
+                <input type="text" ng-model="shippingData.full_name" placeholder="Full Name">
+            </label>
+
+
+<!-- Gender -->
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">Gender <span style="color:red">*</span></span>
+
+                <label class="item item-select">
+                    <select ng-model="shippingData.gender" name="gender">
+                        <option value="L">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </label>
+            </div>
+
+
+<!-- Phone Number -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Phone Number <span style="color:red">*</span></span>
+                <input type="tel" ng-model="shippingData.phone" placeholder="(+62)">
+            </label>
+
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Tanggal Lahir <span style="color:red">*</span></span>
+              <input type="date" ng-model="shippingData.dob">
+            </label>
+
+
+<!-- Email -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Email <span style="color:red">*</span></span>
+                <input type="email" ng-model="shippingData.email" placeholder="">
+            </label>
+
+
+<!--Password -->
+
+
+            <ion-toggle ng-model="shippingData.is_old_patient" toggle-class="toggle-calm" ng-true-value="1" ng-false-value="0" name="old_patient">
+                <span class="settings-item__text">
+                    Saya pasien lama
+                </span>
+            </ion-toggle>
+
+
+        </div>
+
+		<div class="list form payment">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Alamat <span class="assertive">*</span></span>
+                <textarea ng-model="shippingData.address" placeholder="Alamat"></textarea>
+            </label>
+
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">Provinsi <span class="assertive">*</span></span>
+
+                <label class="item item-select">
+                     <select ng-model="shippingData.province" ng-options="a.id as a.name for a in provinces" ng-change="getCities(shippingData.province)">
+                </select>
+                </label>
+            </div>
+
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">Kota <span class="assertive">*</span></span>
+
+                <label class="item item-select">
+                    <select ng-model="shippingData.city" ng-options="a.id as a.name for a in cities" >
+                    </select>
+                </label>
+            </div>
+
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <span class="input-label">Kode pos <span class="assertive">*</span></span>
+                    <input ng-model="shippingData.postal_code" type="text" placeholder="Kode Pos" pattern="\d*" required>
+                </label>
+            </div>
+
+            <!-- <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    <input ng-model="shippingData.promo" type="text" placeholder="Kode Promo">
+                </label>
+                <button class="button button-small" ng-click="checkPromoCode()">
+                  Check
+                </button>
+              </div> -->
+
+            <label class="item item-input">
+                <span class="input-label">Total Harga</span>
+                <input type="text" ng-value="shippingData.total|currency:'Rp '" ng-disabled="true">
+            </label>
+
+             <!-- <div class="item item-input item-stacked-label">
+                <span class="input-label">Provinsi <span class="assertive">*</span></span>
+
+                <label class="item item-select">
+                     <select ng-model="shippingData.province" ng-options="a.id as a.name for a in provinces" ng-change="getCities(shippingData.province)">
+                </select>
+                </label>
+            </div>
+
+            <div class="item item-input item-stacked-label">
+                <span class="input-label">Kota <span class="assertive">*</span></span>
+
+                <label class="item item-select">
+                    <select ng-model="shippingData.city" ng-options="a.id as a.name for a in cities" >
+                    </select>
+                </label>
+            </div>
+
+
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Kode pos <span class="assertive">*</span></span>
+				<input ng-model="shippingData.postal_code" type="text" placeholder="Kode Pos" pattern="\d*" required>
+			</label>
+
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Alamat <span class="assertive">*</span></span>
+				<textarea ng-model="shippingData.address" placeholder="Alamat"></textarea>
+			</label> -->
+		</div>
+
+
+
+		<div class="padding">
+			<button ng-click="checkoutOrder()"class="button button-positive button-block">
+				Pembayaran
+			</button>
+		</div>
+	</ion-content>
+</ion-view>

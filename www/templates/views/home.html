@@ -1,0 +1,86 @@
+<ion-view view-title="Estetika dr. Affandi" id="home">
+    <ion-content>
+
+        <div class="home-start">
+            <!-- <div class="home-hero text-center padding-80 margin-20">
+                <img ng-src="images/estetikalogo.png">
+                <p>Konsultasikan kesehatan dan kecantikan kulit Anda di sini melalui <em>Photo Consultation</em></p>
+                <button class="button button-calm button-small relative" ng-click="goConsult()">
+                    Consult Now <span class="floating-free">FREE</span>
+                </button>
+                <button class="button button-balanced button-block button-large --relative" ng-click="goConsult()">
+                    Konsultasi Sekarang
+                </button>
+            </div> -->
+
+            <ion-slide-box delegate-handle="banner-side-box" on-slide-changed="slideHasChanged($index)" style="width: 100%">
+                <ion-slide ng-repeat="banner in banners">
+                    <button class="button button-clear box blue" ng-click="linkToArticle({{banner}})">
+                      <!-- <button class="button button-clear" style="padding:0">
+                        <img ng-src="https://klinikestetika.com/{{ banner.image }}">
+                      </button> -->
+                      <img ng-src="https://klinikestetika.com/{{ banner.image }}">
+                    </button>
+                </ion-slide>
+             </ion-slide-box>
+
+            <div ng-show="bannersLoaded" class="home-contents">
+
+                <div class="consultation">
+                    <div class="row pd-0">
+                        <div class="col col-33 pd-0 image">
+                            <img src="https://klinikestetika.com/images/home-banner-doctor.png">
+                        </div>
+                        <div class="col col-67 content">
+                            <h4>FREE ONLINE <strong>CONSULTATION</strong></h4>
+                            <p>Konsultasikan kesehatan dan kecantikan kulit Anda secara gratis di sini melalui Photo Consultation {{additionalTextOnAndroid}}</p>
+                            <button ng-click="openConsultation()" class="button button-balanced button-block button-small mg-0">CONSULT NOW</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products">
+                    <div class="row pd-0">
+                        <div class="col col-33 pd-0 image">
+                            <img src="https://klinikestetika.com/images/home-banner-product-default.png">
+                        </div>
+                        <div class="col col-67 content">
+                            <p class="calm">OUR PRODUCT</p>
+                            <h4>LOTION <strong>SEBELUM KRIM PAGI</strong> (SERUM VITAMIN C)</h4>
+                            <p>Dapatkan kemudahan untuk membeli produk perawatan kulit dimanapun Anda berada dengan Estetika M-Commerce</p>
+                            <button ui-sref="app.product" class="button button-balanced button-block button-small">ORDER NOW</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--<button class="button button-balanced button-full" ng-click="checkSuccess()">CONTOH</button>-->
+            <!-- <div class="home-product">
+                <div class="padding">
+                    <h4><span>Our Products</span></h4>
+                </div>
+
+                <ion-list class="padding-reset" ng-if="products">
+                    <ion-item width="50%" class="product-post margin-10" ng-repeat="product in products" href="#/app/product/detail/{{product.id}}">
+                        <div class="post-thumbnail">
+                            <img ng-if="product.is_otc == 0" ng-src="images/ribon.png" alt="" class="ribbon">
+                            <img style="width:100%" ng-if="product.image" ng-src="https://klinikestetika.com/{{ product.image }}">
+                        </div>
+
+                        <div class="post-title">
+                            <h3><b>{{ product.title }}</b></h3>
+                        </div>
+                    </ion-item>
+                </ion-list>
+
+                <div class="padding">
+                    <div class="text-center mg-t-20 mg-b-20">
+                        <a href="#/app/product" class="button button-calm">VIEW ALL</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+    </ion-content>
+</ion-view>

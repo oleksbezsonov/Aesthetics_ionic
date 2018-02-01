@@ -1,0 +1,83 @@
+<ion-view view-title="{{data.title}}" id="product-details">
+    <ion-content>
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshDetailProduct()">
+  </ion-refresher>
+
+        <!-- Start content -->
+        <div class="begin-post product">
+            <div class="thumbnail">
+                <img ng-src="https://klinikestetika.com{{data.image}}" alt="">
+
+<!-- Shade -->
+                <div class="shade"></div>
+
+
+<!-- Title -->
+                <div class="title-product">{{data.title}}</div>
+            </div>
+
+
+<!-- Peringatan -->
+            <div ng-show="data.is_otc == 0" class="card">
+                <div class="item item-icon-left item-text-wrap assertive-bg light">
+                    <i class="icon ion-alert-circled"></i> Pembelian produk ini menggunakan resep dokter.
+                </div>
+            </div>
+
+
+<!-- Fungsi -->
+            <div class="card">
+                <div class="item item-icon-left">
+                    <i class="icon ion-information-circled"></i>Fungsi
+                </div>
+                <div class="item item-text-wrap no-border">
+                    <p>{{data.Fungsi}}</p>
+                </div>
+            </div>
+
+
+<!-- How To -->
+            <div class="card" ng-show="data.CaraPakai">
+                <div class="item item-icon-left">
+                    <i class="icon ion-clipboard"></i> Cara Pakai
+                </div>
+                <div class="item item-text-wrap no-border">
+                    <p>{{data.CaraPakai}}</p>
+                </div>
+            </div>
+
+
+
+<!-- Pricing Tables -->
+            <div class="pricing">
+                <div class="row">
+                    <div class="col">Ukuran</div>
+                    <div class="col">Netto</div>
+                    <div class="col">Harga</div>
+                </div>
+
+                <div class="row">
+                    <div class="col">{{data.prices1size}}</div>
+                    <div class="col">{{data.prices1netto}}</div>
+                    <div class="col">{{data.prices1price}}</div>
+                </div>
+
+                <div ng-if="data.prices2size" class="row">
+                    <div class="col">{{data.prices2size}}</div>
+                    <div class="col">{{data.prices2netto}}</div>
+                    <div class="col">{{data.prices2price}}</div>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer">
+        <!-- Button Cart -->
+        <button ng-click="addNewCartItem(data.id)" class="button button-balanced button-block">
+            <div class="title">Beli Sekarang</div>
+        </button>
+    </div>
+
+</ion-view>

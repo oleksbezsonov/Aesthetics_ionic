@@ -1,0 +1,23 @@
+
+<script>
+angular.module('starter', ['ionic', 'ionic-modal-select'])
+.controller('MainCtrl', ['$scope', function ($scope) {
+  $scope.selectables = [
+    1, 2, 3
+  ];
+</script>
+<div id="consultation" ng-app="starter" ng-controller="MainCtrl">
+
+	<div class="card">
+	  <div class="item item-divider" modal-select="" ng-model="someModel" options="selectables" modal-title="Select a number">
+		Apa jenis kulit Anda ?
+	  </div>
+	  <div class="option">
+   		  {{option}}
+	   </div>
+	  <div class="item item-text-wrap">
+		Jawaban: {{someModel}}
+	  </div>
+	</div>
+	
+</div>

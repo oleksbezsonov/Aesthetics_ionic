@@ -1,0 +1,93 @@
+<ion-view view-title="My Profile">
+    <ion-content>
+        <div class="list list-inset">
+            <div class="item item-icon-left">
+                <i class="icon ion-ios-person-outline"></i>
+                Foto Profil
+            </div>
+            <div class="item item-image">
+                <img id="profilePicture" ng-src="{{profileData.picture}}">
+                <!-- <div class="row responsive-sm">
+                    <div class="col">
+                        <div ng-if="profileData.picture">
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <button class="button button-block button-calm" ng-click="getProfPic()">Ubah Foto Profil</button>
+        </div>
+        <div class="list list-inset">
+            <div class="item item-icon-left">
+                <i class="icon ion-ios-list-outline"></i>
+                Informasi
+            </div>
+            <!-- <div class="item item-text"> -->
+            <form ng-submit="changeProfile()">
+                <!-- <div class="list"> -->
+                <label class="item item-input  item-floating-label">
+                    <span class="input-label">Nama Lengkap</span>
+                    <input type="text" placeholder="Nama Lengkap" ng-model="profileData.full_name">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Jenis Kelamin</div>
+                    <select ng-model="profileData.gender">
+                        <option value="P">Wanita</option>
+                        <option value="L">Pria</option>
+                    </select>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Alamat Email</span>
+                    <input type="email" placeholder="Alamat Email" ng-model="profileData.email">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">No Handphone</span>
+                    <!-- <input type="text" placeholder="No Handphone" ng-model="profileData.phone"> -->
+                    <input type="number" placeholder="No Handphone" ng-model="profileData.phone">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Tanggal Lahir</span>
+                    <input type="date" ng-model="profileData.dob">
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Provinsi</div>
+                    <select ng-model="profileData.province" ng-options="a.id as a.name for a in profileData.provinces" ng-change="getCity(profileData.province)"></select>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">Kota</div>
+                    <select ng-model="profileData.city" ng-options="a.id as a.name for a in profileData.cities"></select>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Kode Pos</span>
+                    <!-- <input type="text" placeholder="Kode Pos" ng-model="profileData.postal_code"> -->
+                    <input type="number" placeholder="Kode Pos" ng-model="profileData.postal_code">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Alamat</span>
+                    <textarea msd-elastic="\n" type="text" placeholder="Alamat" ng-model="profileData.address"></textarea>
+                </label>
+                <button class="button button-block button-calm" type="submit">Simpan Perubahan</button>
+                <!-- </div> -->
+            </form>
+            <!-- </div> -->
+        </div>
+        <div class="list list-inset">
+            <div class="item item-icon-left">
+                <i class="icon ion-ios-locked-outline"></i>
+                Ubah Password
+            </div>
+            <!-- <div class="item item-text"> -->
+                <form ng-submit="changePassword()">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Password Lama</span>
+                        <input type="password" placeholder="Password Lama" ng-model="profileData.passwordLama">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Password Baru</span>
+                        <input type="password" placeholder="Password Baru" ng-model="profileData.passwordBaru">
+                    </label>
+                    <button class="button button-block button-calm" type="submit">Ubah Password</button>
+                </form>
+            <!-- </div> -->
+        </div>
+    </ion-content>
+</ion-view>

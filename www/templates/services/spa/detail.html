@@ -1,0 +1,36 @@
+<ion-view view-title="{{data.title}}" id="serviceSpaDetail">
+  <ion-content>
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshDetailArticle()">
+    </ion-refresher>
+
+
+<!-- Start Post Content -->
+    <div class="begin-post article">
+      <div class="thumbnail-article">
+          <img class="cover" ng-src="https://klinikestetika.com/{{data.image}}">
+      </div>
+
+      <div style="padding:5px 10px;">
+        <div class="title-article"><b>{{data.title}}</b></div>
+
+<!-- Meta Content -->
+        <div class="meta-article">
+          <span>
+            <i class="icon ion-calendar"></i>{{data.updated_at}}
+          </span>
+
+          <span>
+            <i class="icon ion-ios-pricetag"></i>{{data.name}}
+          </span>
+        </div>
+
+<!-- Exce Content -->
+        <hr>
+        <div ng-bind-html="data.description" style="text-align:justify;padding:10px 0px"></div>
+      </div>
+    </div>
+ 
+  </ion-content>
+</ion-view>

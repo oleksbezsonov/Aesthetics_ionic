@@ -1,0 +1,30 @@
+<ion-view view-title="Video Consultation" id="consultation">
+  <div id="publisher"></div>
+  <div id="subscriber"></div>
+  <ion-content ng-hide="isSubscribing">
+    <div class="list card">
+      <div class="item item-text-wrap calm-bg text-center light waiting-content">
+        Sesi konsultasi Anda akan dimulai dalam waktu<br /><br />
+        <timer max-time-unit="'minute'" end-time="end_waiting_time" interval="1000">
+          <h1 class="light">{{mminutes}}:{{sseconds}}</h1>
+        </timer><br />
+        <p ng-repeat="text in textWarning">{{text}}</p>
+      </div>
+    </div>
+  </ion-content>
+  <!-- <ion-content>
+    <p>Subscriber:</p>
+
+    <ot-layout props="{animate:true,bigFixedRatio:true}">
+      <ot-subscriber ng-repeat="stream in streams" stream="stream" props="{style: {nameDisplayMode: 'off'}}"></ot-subscriber>
+      <div id="facePublisher" ng-if="publishing">
+        <ot-publisher id="publisher" props="{style: {nameDisplayMode: 'off'}, resolution: '1280x720', frameRate: 30}"></ot-publisher>
+      </div>
+      <reconnecting-overlay id="reconnectingOverlay"
+        ng-if="reconnecting"
+        ng-cloak>
+      </reconnecting-overlay>
+    </ot-layout>
+
+  </ion-content> -->
+</ion-view>

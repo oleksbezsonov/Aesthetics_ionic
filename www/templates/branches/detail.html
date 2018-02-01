@@ -1,0 +1,15 @@
+<ion-view id="branches" view-title="{{ branch.name }}">
+	<ion-content>
+		<div class="padding">
+			<p>{{ branch.address }}</p>
+			<a class="button button-block button-light" ng-click="showMaps(branch)">
+				<i class="icon ion-ios-location"></i> See on Map
+			</a>
+			<!-- <a href="tel:{{ branch.phone }}" class="button button-block button-positive"> -->
+			<a href="#" class="button button-block button-positive" ng-click="callNumber(branch.phone)">
+				<i class="icon ion-ios-telephone"></i> {{ branch.phone }}
+			</a>
+		</div>
+		<ion-gallery ion-gallery-items="branch_images"></ion-gallery>
+	</ion-content>
+</ion-view>

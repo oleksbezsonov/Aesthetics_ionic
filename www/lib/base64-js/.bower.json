@@ -1,0 +1,14 @@
+{
+  "name": "base64-js",
+  "homepage": "https://github.com/beatgammit/base64-js",
+  "version": "1.2.1",
+  "_release": "1.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.2.1",
+    "commit": "f8b20453941d2d7283b9452f0113d8357eab33a5"
+  },
+  "_source": "https://github.com/beatgammit/base64-js.git",
+  "_target": "^1.2.0",
+  "_originalSource": "base64-js"
+}

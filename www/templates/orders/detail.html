@@ -1,0 +1,115 @@
+<ion-view view-title="Order Details" id="orders">
+  <ion-content>
+ <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshDetailOrder()">
+  </ion-refresher>
+<!-- 	<style>
+	table.striped, table.basic {width: 100%}
+	table.striped tr, table.basic tr {border-bottom:1px solid #ccc;}
+	table.striped tr td, table.basic tr td {padding:5px;}
+	table.striped tr:nth-child(even) {background-color: #f2f2f2}
+	</style> -->
+	<div class="orders-detail padding">
+		<div class="orders-detail-start margin-50">
+			<h4>Informasi Pengiriman</h4>
+			<table class="striped">
+				<tr>
+					<td>Faktur</td>
+					<td>#{{data.order_no}}</td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td>{{data.status}}</td>
+				</tr>
+				<tr>
+					<td>Alamat Pengiriman</td>
+					<td>{{data.shipping_address}}, {{data.city_name}}, {{data.province_name}} {{data.shipping_postal_code}}</td>
+				</tr>
+				<tr>
+					<td>Tanggal</td>
+					<td>{{data.created_at}}</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="">
+			<h4>Informasi Produk</h4>
+			<div class="list">
+				<div class="item item-avatar" ng-repeat="product in products">
+					<img src="{{product.image}}">
+<!-- 					<div class="row">
+						<div class="col col-80"> -->
+							<h2 style="white-space:normal"><b>{{product.title}}</b></h2>
+							<p class="subdued">{{product.qty}} buah</p>
+							<p class="subdued">{{product.price}}/buah</p>
+<!-- 						</div>
+						<div class="col col-20"> -->
+							<h2 class="subdued pull-right"><b>{{product.totalPrice}}</b></h2>
+						<!-- </div> -->
+					</div>
+				</div>
+			</div>
+			<!-- <table class="basic">
+				<tr>
+					<td colspan="2">Produk</td>
+					<td></td>
+					<td>Total</td>
+				</tr>
+
+
+				<tr ng-repeat="product in products">
+					<td colspan="2" style="vertical-align:middle">
+						<img ng-src="{{product.image}}" alt="" style="height:50px">
+					</td>
+					<td style="vertical-align:middle">
+						<b>{{product.title}}</b><br>
+						<span>
+							Q: <b>{{product.qty}}</b>/
+							S: <b>{{product.size}}</b>/
+							P: <b>{{product.price}}</b>
+						</span>
+					</td>
+					<td style="vertical-align:middle">{{product.totalPrice}}</td>
+				</tr>
+
+			</table> -->
+
+			<table class="striped">
+				<tr>
+					<td>Berat</td>
+					<td><span class="pull-right">{{data.total_weight}} Kg</span></td>
+				</tr>
+				<tr>
+					<td>Sub Total</td>
+					<td>Rp <span class="pull-right">{{data.subtotal}}</span></td>
+				</tr>
+				<tr>
+					<td>Biaya Pengiriman</td>
+					<td>Rp <span class="pull-right">{{data.shipping_price}}</span></td>
+				</tr>
+				<tr style="font-weight:bold">
+					<td>Total</td>
+					<td>Rp <span class="pull-right">{{data.total_price}}</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+
+  </ion-content>
+  <div ng-show="data.status == 'MENUNGGU PEMBAYARAN'" class="bar bar-footer">
+		<button class="button button-balanced button-block" ui-sref="app.orders_payment({'token': data.random_token})">
+			<div class="title">
+				Bayar Sekarang
+			</div>
+		</button>
+	</div>
+</ion-view>
+<!-- <div ng-show="data.status == 'MENUNGGU PEMBAYARAN'" class="bar bar-footer">
+	<button style="margin: 0px" class="button button-balanced button-block" ui-sref="app.orders_payment({'order_no':'{{data.order_no}}'})">
+		<div class="title" style="top:-7px"></div>
+		Bayar Sekarang
+	</button>
+</div> -->

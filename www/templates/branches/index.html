@@ -1,0 +1,18 @@
+<ion-view id="branches" view-title="Branches">
+	<ion-content>
+		<div class="row responsive-md branches-content" style="-webkit-box-align: end;align-items: flex-end;">
+			<div class="list card col col-25" ng-repeat="branch in branches" ui-sref="app.branchDetail({branch_id: branch.id})">
+				<!-- <a href="#/app/branch/detail/{{ branch.id }}" class="item item-text-wrap"> -->
+				<div class="item item-text-wrap">
+          <h2>{{ branch.name }}</h2>
+					<p>{{ branch.address }}</p>
+				</div>
+				<!-- </a> -->
+				<a href="#" class="item item-divider item-icon-left positive" ng-click="callNumber($event, branch.phone)">
+					<i class="icon ion-ios-telephone"></i> {{ branch.phone }}
+				</a>
+			</div>
+
+		</div>
+	</ion-content>
+</ion-view>

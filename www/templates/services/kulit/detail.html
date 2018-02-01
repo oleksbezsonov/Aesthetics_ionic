@@ -1,0 +1,32 @@
+<ion-view view-title="{{data.title}}" id="serviceKulitDetail">
+  <ion-content>
+    
+
+<!-- Start Post Content -->
+    <div class="begin-post article">
+      <div class="thumbnail-article">
+          <img ng-if="data.image"  class="cover" ng-src="https://klinikestetika.com/{{data.image}}">
+      </div>
+
+      <div style="padding:5px 10px;">
+        <div class="title-article"><b>{{data.title}}</b></div>
+
+<!-- Meta Content -->
+        <div class="meta-article">
+          <span>
+            <i class="icon ion-calendar"></i>{{data.updated_at}}
+          </span>
+
+          <span>
+            <i class="icon ion-ios-pricetag"></i>{{data.name}}
+          </span>
+        </div>
+
+<!-- Exce Content -->
+        <hr>
+        <div ng-bind-html="content" style="text-align:justify;padding:10px 0px"></div>
+      </div>
+    </div>
+ 
+  </ion-content>
+</ion-view>

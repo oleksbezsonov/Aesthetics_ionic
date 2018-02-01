@@ -1,0 +1,39 @@
+<ion-view cache-view="false" view-title="Photo Consultation" id="consultation">
+	<ion-content lazy-scroll>
+
+		<div class="list mg-b-0" ng-if="!consultationData" ng-repeat="consultation in consultations">
+
+			<div class="item item-text-wrap ng-class:{'item-thumbnail-left': consultation.image, 'item-button-right': consultation.status == 'Tersedia'}"
+				ng-if="consultation.type == 'photo'" ui-sref="app.photo_detail({id:consultation.id})">
+
+				<img ng-show="consultation.image" image-lazy-src="{{consultation.image}}" image-lazy-loader="dots">
+				<h2>{{consultation.status}}</h2>
+				<p>{{consultation.updated_at}}</p>
+				<p style="text-transform:capitalize">{{consultation.type}} consultation</p>
+				<button ng-if="consultation.status == 'Tersedia'" ng-click="buyPrescription($event,consultation.id)" class="button button-calm button-stable">
+          Beli
+        </button>
+			</div>
+
+			<div class="item item-text-wrap ng-class:{'item-button-right': consultation.status == 'Tersedia'}" ng-if="consultation.type == 'video'">
+
+				<h2 style="text-transform:capitalize">{{consultation.status}}</h2>
+				<p>{{consultation.updated_at}}</p>
+				<p style="text-transform:capitalize">{{consultation.type}} consultation</p>
+				<div style="clear:both"></div>
+				<button ng-if="consultation.status == 'Tersedia'" ng-click="buyPrescription($event,consultation.id)" class="button button-calm button-stable">
+          Beli
+        </button>
+			</div>
+		</div>
+
+		<div ng-if="consultationData">
+		</div>
+
+	</ion-content>
+	<div class="bar bar-footer">
+		<button class="button button-balanced button-block" ui-sref="app.photo_consultation_page_1">
+        <i class="icon ion-plus-circled"></i> New Consultation
+      </button>
+	</div>
+</ion-view>

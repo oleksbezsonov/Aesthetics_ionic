@@ -1,0 +1,61 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+     <meta http-equiv="Content-Security-Policy" content="
+        default-src * data: blob: ws: wss:;
+        style-src 'self' 'unsafe-inline' https:;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:35729;
+        media-src * blob:;
+        img-src 'self' https://klinikestetika.com https://static.opentok.com https://www.doku.com data:;">
+    <title>Estetika</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#1e61ac" />
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- inject:app-styles:css --><!-- endinject -->
+    <!-- uncomment if using your own iconfont -->
+    <!-- <link rel="stylesheet" href="styles/own-icons.css"> -->
+</head>
+<body ng-app="estetika">
+
+    <ion-nav-view ui-view></ion-nav-view>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/ionic-modal-select/dist/ionic-modal-select.min.js"></script>
+    <script src="lib/ionic-content-banner/dist/ionic.content.banner.min.js"></script>
+    <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="lib/ion-gallery/dist/ion-gallery.min.js"></script>
+    <script src="lib/angular-timer/dist/angular-timer.min.js"></script>
+    <script src="lib/ionic-filter-bar/dist/ionic.filter.bar.min.js"></script>
+    <script src="lib/angular-elastic/elastic.js"></script>
+    <script src="lib/ionic-image-lazy-load/ionic-image-lazy-load.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script async="" src="lib/analytics.js"></script>
+    <!-- inject:vendor:js --><!-- endinject -->
+    <!-- inject:app:js --><script src="scripts/app-020ba91a.js"></script><!-- endinject -->
+
+    
+    <script src="cordova.js"></script>
+
+<script>
+    document.onclick = function (e) {
+        e = e ||  window.event;
+        var element = e.target || e.srcElement;
+
+        if (element.tagName == 'A') {
+            window.open(element.href, "_self", "location=yes");
+            return false;
+        }
+    };
+</script>
+
+
+</body>
+</html>

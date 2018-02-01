@@ -1,0 +1,35 @@
+{
+  "name": "opentok-layout-js",
+  "version": "0.5.1",
+  "homepage": "https://github.com/aullman/opentok-layout-js",
+  "authors": [
+    "Adam Ullman <adam@tokbox.com>"
+  ],
+  "description": "Automatic layout of video elements (publisher and subscriber) minimising white-space for the OpenTok on WebRTC API. This is intended for use with the OpenTok on WebRTC JS API.",
+  "main": "./opentok-layout.js",
+  "keywords": [
+    "opentok",
+    "webrtc"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "package.json",
+    "gulpfile.js",
+    "build",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "_release": "0.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.5.1",
+    "commit": "83c49351077722da86d8bf60e6abec7f10e541c0"
+  },
+  "_source": "https://github.com/aullman/opentok-layout-js.git",
+  "_target": "^0.5.1",
+  "_originalSource": "opentok-layout-js"
+}

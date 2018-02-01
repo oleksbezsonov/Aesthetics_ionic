@@ -1,0 +1,15 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-calm">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeDokuModal()">
+        <i class="icon ion-ios-close-empty"></i>
+      </button>
+    </div>
+    <h1 class="title">Payment with Doku</h1>
+  </ion-header-bar>
+  <ion-content id="doku-content">
+    <div ng-style="iframeWrapperStyle">
+      <iframe ng-src="{{dokuUrl}}" frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+    </div>
+  </ion-content>
+</ion-modal-view>

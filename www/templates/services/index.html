@@ -1,0 +1,69 @@
+<ion-view view-title="Service" id="service">
+<ion-pane>
+	<ion-tabs class="tabs-positive tabs-estetika tabs-top">
+		<ion-tab title="Kulit">
+	  		<ion-content lazy-scroll>
+	  			<div class="row responsive-md services-content">
+
+				<div class="list card spa-post col col-33" ng-repeat="kulit in kulits" ui-sref="app.serviceKulitDetail({'service_id':'{{kulit.id}}'})" ng-hide="kulit.description == ''">
+						<div class="item item-image">
+							<img image-lazy-src="https://klinikestetika.com/{{kulit.image}}" ng-hide="kulit.image == ''" image-lazy-loader="dots">
+						</div>
+						<div class="item item-body">
+							<h2 class="title">{{kulit.name}}</h2>
+							<p ng-bind-html="kulit.description | limitTo:100" style="white-space:normal" ng-hide="kulit.description == ''">...</p>
+						</div>
+				</div>
+
+	  			</div>
+			</ion-content>
+		</ion-tab>
+
+		<ion-tab title="SPA">
+	  		<ion-content>
+
+
+<!-- 				<div ng-repeat="spa in spas">
+					<div class="list card spa-post"  ng-if="spa.description !== ''" ui-sref="app.serviceSpaDetail({'service_id':'{{spa.id}}'})">
+					<div class="list card spa-post" ui-sref="app.serviceSpaDetail({'service_id':'{{spa.id}}'})">
+					  <div class="item item-body">
+					    <img class="full-image" ng-src="https://klinikestetika.com/{{spa.image}}">
+					    <p class="title">{{spa.name}}</p>
+					     <div ng-bind-html="spa.description | limitTo:250" style="white-space:normal">...</div>
+					  </div>
+					</div>
+
+					<div class="list card spa-post"  ng-if="spa.description == ''">
+					  <div class="item item-body">
+					    <img class="full-image" ng-src="https://klinikestetika.com/{{spa.image}}">
+					    <p class="title">{{spa.name}}</p>
+					     <div ng-bind-html="spa.description | limitTo:250" style="white-space:normal">...</div>
+					  </div>
+					</div>
+
+				</div> -->
+				<div class="row responsive-md services-content">
+
+				<div class="list card spa-post col col-33" ng-repeat="spa in spas" ui-sref="app.serviceSpaDetail({'service_id':'{{spa.id}}'})">
+					<div class="item item-image">
+						<img image-lazy-src="https://klinikestetika.com/{{spa.image}}" image-lazy-loader="dots">
+					</div>
+					<div class="item item-body">
+						<h2 class="title">{{spa.name}}</h2>
+						<p ng-bind-html="spa.description | limitTo:100" style="white-space:normal">...</p>
+					</div>
+				</div>
+
+				</div>
+
+
+
+
+					<ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%">
+  					</ion-infinite-scroll>
+			</ion-content>
+		</ion-tab>
+
+</ion-pane>
+	</ion-tabs>
+</ion-view>
