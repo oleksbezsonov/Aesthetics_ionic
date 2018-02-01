@@ -46,20 +46,26 @@
                         <div class="list">
 
                             <label class="item item-input item-select">
-                                <div class="input-label">Quantity</div>
+                                <div class="input-label">Jumlah</div>
                                 <select data-ng-options="qty_option.name for qty_option in qty_options" data-ng-model="product_cart_qty[product_cart.product_key]" ng-selected="product_cart.qty" ng-change="cartEditQty(product_cart_qty[product_cart.product_key].id,product_cart_size[product_cart.product_key].id,product_cart.id)"></select>
                             </label>
 
                             <label class="item-input item-select">
-                                <span class="input-label">Size</span>
+                                <span class="input-label">Ukuran</span>
                                  <select data-ng-options="size.name for size in product_cart_sizes[product_cart.product_key]"
                                    data-ng-model="product_cart_size[product_cart.product_key]"
                                    ng-change="cartEditSize(product_cart_qty[product_cart.product_key].id,product_cart_size[product_cart.product_key].id,product_cart.id)"
                                    ng-disabled="product_cart_sizes[product_cart.product_key].length == 1"
                                    ></select>
                             </label>
-
-                            <div class="item">{{ product_cart.price|currency:"Rp ":0 }}</div>
+                            <label class="item item-input">
+                                <span class="input-label">Unit Price</span>
+                                <div>{{ product_cart.price|currency:"Rp ":0 }}</div>
+                            </label>
+                            <label class="item item-input">
+                                <span class="input-label">Sub Total</span>
+                                <div>{{ product_cart.qty*product_cart.price|currency:"Rp ":0 }}</div>
+                            </label>
                         </div>
 
                     </div>
