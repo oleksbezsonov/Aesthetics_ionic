@@ -1061,6 +1061,14 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         }, function(t) {
             console.error("ERR", t), n.hide()
         })
+    }, i.getProvinces = function(){
+        i.provinces = [], o.get("https://klinikestetika.com/api/v1/estetika/provinces").then(function(n) {
+            i.provinces = n.data.map(function(i) {
+                return i
+            })
+        }, function(i) {
+            console.error("ERR", i)
+        })
     }
 }]), angular.module("estetika").controller("ProductsController", ["$scope", "$location", "$http", "$ionicLoading", "$ionicFilterBar", function(t, n, e, a, i) {
     t.totalNext = 15, t.totalNow = 0, t.categories = [], t.category = 1, t.products = [], t.theEnd = !1, t.states = {
