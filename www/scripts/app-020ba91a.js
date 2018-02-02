@@ -318,9 +318,11 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         t.categories = n.data.map(function(t) {
             return t
         })
+        t.loadMore()
     }, function(n) {
         t.showToast("Gagal melakukan penarikan data", "long", "bottom"), console.error("ERR", n)
     }), t.loadMore = function() {
+        console.log("call loadmore")
         e.get("https://klinikestetika.com/api/v1/estetika/posts/category/" + t.category + "/" + t.totalNow + "/5").then(function(n) {
             0 == n.data ? (console.log(n.data), t.theEnd = !0) : (t.totalNow = t.totalNext, t.totalNext += 5, t.articles = t.articles.concat(n.data.map(function(t) {
                 return t.updated_at = moment(t.updated_at, "YYYY-MM-DD HH:mm:ss").format("D MMMM YYYY"), t.isContainImage = t.image.indexOf("NULL") == -1, t
@@ -1024,7 +1026,7 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         u ? (n.hide(), i.showToast("Anda telah memasukkan kode Promo", "long", "bottom")) : window.setTimeout(function() {
             n.hide(), u = !0
             //i.shippingData.total = .9 * i.shippingData.total
-            i.shippingData.discount = 0.1 * i.shippingData.total_price
+            i.shippingData.discount = 0.1 * i.shippingData.cart_total
             i.shippingData.total_price = i.getTotalPrice(i.cart_total, i.shippingData.shipping_price, i.shippingData.discount)
             console.log(i.shippingData.total_price)
             i.showToast("Anda mendapatkan potongan harga 10%", "long", "bottom")
@@ -1039,6 +1041,13 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         null === discount ? discount = 0 : discount = discount
         return parseFloat(cart_total) + parseFloat(shipping_price) - parseFloat(discount)
     }, i.checkoutOrder = function() {
+        var retVal = confirm("Teruskan proses untuk melakukan pembayaran?");
+        if( retVal == true ){
+            
+        }
+        else{
+            return;
+        }
         n.show();
         var t = !!l.get("mobile_session");
         t ? i.shippingData.mobile_session = l.get("mobile_session") : (i.shippingData.mobile_session = 0, i.shippingData.full_name && i.shippingData.gender && i.shippingData.dob && i.shippingData.phone && i.shippingData.email || (i.showToast("Semua Kolom Harus Diisi!", "long", "bottom"), n.hide())), i.shippingData.province && i.shippingData.city && i.shippingData.address || (i.showToast("Semua Kolom Harus Diisi!", "long", "bottom"), n.hide()), o.post("https://klinikestetika.com/api/v1/estetika/checkout_shipping", {
@@ -1168,6 +1177,11 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
     }), t.getProfPic = function() {
         t.getPicture("profilePicture", "Foto Profil", !0, "https://klinikestetika.com/api/v1/estetika/change_profile_picture")
     }, t.changeProfile = function() {
+        var valid = t.phoneNumberValdiation()
+        if (valid == false){
+            alert("Please check your phone number again, sorry")
+            return
+        }
         n.post("https://klinikestetika.com/api/v1/estetika/change_profile", {
             full_name: t.profileData.full_name,
             email: t.profileData.email,
@@ -1226,6 +1240,24 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         }, function(t) {
             console.error("ERR", t)
         })
+    }, t.phoneNumberValdiation = function(){
+        var number = t.profileData.phone
+        if (number.length == 11){
+            var res = number.slice(0, 1);
+            if (res == "0"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        if (number.length == 13){
+            var res = number.slice(0, 3);
+            if (res == "+62"){
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }]), angular.module("estetika").controller("video_consultation_index", ["$http", "$scope", "$localstorage", "$ionicLoading", "$state", "$interval", function(t, n, e, a, i, o) {
     function s(t) {
