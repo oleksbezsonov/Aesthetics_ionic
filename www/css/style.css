@@ -39,6 +39,7 @@ h2.title.title-left{font-size: 1.1em;}
 .title-headline-article{font-size: 1.2em;color:#fff;background-color:#2f3a79;margin-bottom:0.5em;padding:10px;min-height:60px; }
 .content-article{margin:1em 0 3em 0;}
 #products .input-label {font-size: 1.2em; font-weight: bold; color: #fff;}
+#service .input-label {font-size: 1.2em; font-weight: bold; color: #fff;}
 #products .payment-label{font-size: 1.2em; font-weight: bold;color: #000;}
 em {font-style: italic; font-size: 1em;}
 .tabs-positive > .tabs, .tabs.tabs-positive {background-color: #03a688; border-color: #03a688; }

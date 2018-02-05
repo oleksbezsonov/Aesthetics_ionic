@@ -265,24 +265,77 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
     port: 443,
     path: "/api/v1",
     needsAuth: !1
-}), angular.module("estetika").controller("ServiceController", ["$ionicLoading", "$scope", "$http", "$stateParams", function(t, n, e, a) {
-    n.totalNext = 10, n.totalNow = 0, n.kulits = [], n.spas = [], n.theEnd = !1, n.showLoading(), n.loadMore = function() {
-        e.get("https://klinikestetika.com/api/v1/estetika/services/groups/2/" + n.totalNow + "/10").then(function(t) {
-            0 == t.data ? n.theEnd = !0 : (n.totalNow = n.totalNext, n.totalNext += 10, n.spas = n.spas.concat(t.data.map(function(t) {
+}), angular.module("estetika").controller("ServiceController", ["$scope", "$location", "$http", "$ionicLoading", "$ionicFilterBar", function(t, n, e, a, i) {
+    // n.totalNext = 10, n.totalNow = 0, n.kulits = [], n.spas = [], n.theEnd = !1, n.showLoading(), n.loadMore = function() {
+    //     e.get("https://klinikestetika.com/api/v1/estetika/services/groups/2/" + n.totalNow + "/10").then(function(t) {
+    //         0 == t.data ? n.theEnd = !0 : (n.totalNow = n.totalNext, n.totalNext += 10, n.spas = n.spas.concat(t.data.map(function(t) {
+    //             return t
+    //         }))), n.$broadcast("scroll.infiniteScrollComplete")
+    //     }, function(t) {
+    //         console.error("ERR", t)
+    //     })
+    // }, n.refreshSpas = function() {
+    //     n.totalNow = 0, n.totalNext = 10, n.theEnd = !1, n.loadMore(), n.$broadcast("scroll.refreshComplete")
+    // }, e.get("https://klinikestetika.com/api/v1/estetika/services/groups/1").then(function(e) {
+    //     n.kulits = e.data.map(function(t) {
+    //         return t
+    //     }), t.hide()
+    //     n.loadMore()
+    // }, function(e) {
+    //     t.hide(), n.showToast("Gagal melakukan penarikan data", "long", "bottom"), console.error("ERR", e)
+    // })
+    t.totalNext = 15, t.totalNow = 0, t.categories = [], t.category = 1, t.services = [], t.theEnd = !1, t.states = {
+        loading: !0,
+        searched: !1
+    }
+    //t.loadMore()
+    e.get("https://klinikestetika.com/api/v1/estetika/services/groups").then(function(n) {
+        //t.categories = ["Kulit", "Spa"]
+        t.states.loading = !1, t.categories = n.data.map(function(t) {
+            return t
+        })
+        t.loadMore()
+    }, function(n) {
+        t.states.loading = !1, console.error("ERR", n)
+    }), t.loadProducts = function() {
+        t.showLoading(), e.get("https://klinikestetika.com/api/v1/estetika/services/groups/" + t.category + "/0/15").then(function(n) {
+            a.hide(), t.services = n.data
+        })
+    }, t.loadMore = function() {
+        e.get("https://klinikestetika.com/api/v1/estetika/services/groups/" + t.category + "/" + t.totalNow + "/15").then(function(n) {
+            0 == n.data ? (t.theEnd = !0, console.log("End of records is reached")) : (t.totalNow = t.totalNext, t.totalNext += 15, t.services = t.services.concat(n.data.map(function(t) {
                 return t
-            }))), n.$broadcast("scroll.infiniteScrollComplete")
+            }))), t.$broadcast("scroll.infiniteScrollComplete")
         }, function(t) {
             console.error("ERR", t)
         })
-    }, n.refreshSpas = function() {
-        n.totalNow = 0, n.totalNext = 10, n.spas = [], n.theEnd = !1, n.loadMore(), n.$broadcast("scroll.refreshComplete")
-    }, e.get("https://klinikestetika.com/api/v1/estetika/services/groups/1").then(function(e) {
-        n.kulits = e.data.map(function(t) {
-            return t
-        }), t.hide()
-    }, function(e) {
-        t.hide(), n.showToast("Gagal melakukan penarikan data", "long", "bottom"), console.error("ERR", e)
-    })
+    }, t.refreshProduct = function() {
+        o && (o(), o = null), t.totalNow = 0, t.totalNext = 15, t.services = [], t.theEnd = !1, t.loadMore(), t.$broadcast("scroll.refreshComplete")
+    }, t.categoryChange = function(n) {
+        t.category = n, t.totalNow = 0, t.totalNext = 15, t.services = [], t.theEnd = !1
+        t.loadMore()
+    };
+    var o;
+    t.showFilterBar = function() {
+        t.states.searched = !0, o = i.show({
+            debounce: !0,
+            delay: 1e3,
+            items: t.services,
+            update: s,
+            cancel: l
+        })
+    };
+    t.initCategory = function() {
+
+    }
+    var s = function(n, i) {
+        i && (t.filterText = i, t.states.loading = !0, t.showLoading(), e.get("https://klinikestetika.com/api/v1/estetika/services/groups/" + t.category + "/search/" + i + "?token=gkrWlsJAa9H6YoIDOKV4Cu13sYOqbEpW").then(function(n) {
+            a.hide(), console.log(n.data), t.products = n.data, t.theEnd = !0
+        }))
+    },
+    l = function() {
+        t.states.searched = !1, t.theEnd = !1, t.loadProducts()
+    }
 }]).controller("ServiceKulitController", ["$scope", "$http", "$stateParams", "$ionicSideMenuDelegate", "$ionicLoading", function(t, n, e, a, i) {
     t.$on("$ionicView.enter", function() {
         a.canDragContent(!1)
@@ -1015,21 +1068,44 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
             i.shippingData.dob = new Date("2015-01-01")
             i.shippingData.shipping_price = i.getShippingPrice(i.data.city_id)
         }
-        alert(i.shippingData.shipping_price + " " + i.shippingData.cart_total)
-        console.log("Total: ", i.shippingData.total_price)
+        //alert(i.shippingData.shipping_price + " " + i.shippingData.cart_total)
+        //console.log("Total: ", i.shippingData.total_price)
     }, function(t) {
         console.error("ERR", t)
     }), i.checkPromoCode = function() {
+        var promo_code = i.shippingData.promo_code
+        if (i.shippingData.promo_code == null || i.shippingData.promo_code == undefined){
+            i.shippingData.promo_code = 0;
+        }
+        n.show()
+        o.get("https://klinikestetika.com/api/v1/estetika/promos/coupons/" + promo_code).then(function(o){
+            console.log("o.data.is_valid", o.data)
+            //o.data.data.discount = 10.0
+            //o.data.data.is_valid = 1
+
+            if (o.data.data.is_valid == 0){
+                alert(o.data.data.message)
+                i.shippingData.discount = 0
+                n.hide()
+            }else{
+                alert(o.data.data.message)
+                //i.shippingData.discount = (o.data.data.discount * i.cart_total) + ""
+                i.addDiscount(o.data.data.discount)
+                //i.shippingData.promo_code ? (n.show(), i.addDiscount()) : (i.shippingData.discount = 0, i.showToast("Masukkan kode promo terlebih dahulu", "long", "bottom"))
+            }
+            
+        })
         //shippingData.promo_code
-        i.shippingData.promo_code ? (n.show(), i.addDiscount()) : (i.shippingData.discount = 0, i.showToast("Masukkan kode promo terlebih dahulu", "long", "bottom"))
-    }, i.addDiscount = function() {
+        
+    }, i.addDiscount = function(discount) {
         u ? (n.hide(), i.showToast("Anda telah memasukkan kode Promo", "long", "bottom")) : window.setTimeout(function() {
             n.hide(), u = !0
             //i.shippingData.total = .9 * i.shippingData.total
-            i.shippingData.discount = 0.1 * i.shippingData.cart_total
+            i.shippingData.discount = discount * i.shippingData.cart_total / 100.0
+            
             i.shippingData.total_price = i.getTotalPrice(i.cart_total, i.shippingData.shipping_price, i.shippingData.discount)
             console.log(i.shippingData.total_price)
-            i.showToast("Anda mendapatkan potongan harga 10%", "long", "bottom")
+            i.showToast("Anda mendapatkan potongan harga " + discount + "%", "long", "bottom")
         }, 1e3)
     }, i.getShippingPrice = function(s) {        
         o.get("https://klinikestetika.com/api/v1/estetika/get_shipping_price/" + s).then(function(o) {
@@ -1472,7 +1548,12 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
         t.put("templates/photos/question-consultation.html", '<script>angular.module(\'starter\',[\'ionic\',\'ionic-modal-select\']).controller(\'MainCtrl\',[\'$scope\',function($scope){$scope.selectables=[1,2,3];</script> <div id="consultation" ng-app="starter" ng-controller="MainCtrl"><div class="card"><div class="item item-divider" modal-select="" ng-model="someModel" options="selectables" modal-title="Select a number">Apa jenis kulit Anda ?</div><div class="option"> {{option}}</div><div class="item item-text-wrap">Jawaban: {{someModel}}</div></div></div>'), 
         t.put("templates/products/detail.html", '<ion-view view-title="{{data.title | limitTo:30 }}" id="product-details"> <ion-content> <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshDetailProduct()"></ion-refresher><div class="begin-post product"><div class="thumbnail"> <img class="full-image" ng-src="https://klinikestetika.com{{data.image}}" alt="{{data.title}}"><div class="shade"></div><div class="title-product"><h2>{{ data.title }}</h2></div></div><div ng-show="data.is_otc == 0" class="card"><div class="item item-icon-left item-text-wrap assertive-bg light"> <i class="icon ion-alert-circled"></i> Pembelian produk ini menggunakan resep dokter.</div></div><div class="card"><div class="item item-icon-left"> <i class="icon ion-information-circled"></i><strong>Fungsi</strong></div><div class="item item-text-wrap no-border"><p>{{data.Fungsi}}</p></div></div><div class="card" ng-show="data.CaraPakai"><div class="item item-icon-left"> <i class="icon ion-clipboard"></i> <strong>Cara Pakai</strong></div><div class="item item-text-wrap no-border"><p>{{data.CaraPakai}}</p></div></div><div class="pricing"><div class="row"><div class="col">Ukuran</div><div class="col">Netto</div><div class="col">Harga</div></div><div class="row"><div class="col">{{data.prices1size}}</div><div class="col">{{data.prices1netto}}</div><div class="col"><strong>{{data.prices1price}}</strong></div></div><div ng-if="data.prices2size" class="row"><div class="col">{{data.prices2size}}</div><div class="col">{{data.prices2netto}}</div><div class="col"><strong>{{data.prices2price}}</strong></div></div></div></div> </ion-content><div class="bar bar-footer"> <button ng-click="addNewCartItem(data.id)" class="button button-block button-calm buy-button"><div class="title">Beli Sekarang</div></button></div> </ion-view>'), 
         t.put("templates/products/index.html", '<ion-view view-title="Produk" id="products"><ion-nav-buttons side="right"><button class="button button-icon icon ion-ios-search-strong"ng-click="showFilterBar()"></button></ion-nav-buttons><div class="bar bar-subheader item-input-inset"ng-hide="states.searched"><label class="item-input-wrapper item-select"><div class="input-label">Kategori</div><select ng-model="category"ng-options="a.id as (a.name + \' (\' + a.total_posts + \')\') for a in categories"ng-change="categoryChange(category)"></select></label></div><ion-content class="product-list"ng-class="{\'pd-t-40\': !states.searched}"lazy-scroll><ion-refresher pulling-text="Pull to refresh..."on-refresh="refreshProduct()"></ion-refresher><div class="row"><div class="product-card"><a class="product-link" href="#/app/product/detail/{{product.id}}" ng-repeat="product in products track by product.id"><img ng-if="product.is_otc == 0"ng-src="images/ribon.png"alt="{{ product.title }}"class="ribbon"><img class="product-image-thumb"image-lazy-src="https://klinikestetika.com/{{product.image}}"image-lazy-loader="dots"><div class="meta-product"><strong>{{product.title}}</strong></div></a></div></div><div ng-if="(!products.length && states.searched) || loading"class="no-results"><p class="mg-t-40 text-center">No Results for<strong>{{filterText}}</strong></p></div><ion-infinite-scroll ng-if="!theEnd"on-infinite="loadMore()"distance="1%"></ion-infinite-scroll></ion-content></ion-view>'), 
-        t.put("templates/services/index.html", '<ion-view view-title="Service" id="service"><ion-pane><ion-tabs class="tabs-positive tabs-estetika tabs-top"><ion-tab title="Kulit"><ion-content lazy-scroll><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="kulit in kulits" ui-sref="app.serviceKulitDetail({\'service_id\':\'{{kulit.id}}\'})" ng-hide="kulit.description == \'\'"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{kulit.image}}" ng-hide="kulit.image == \'\'" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{kulit.name}}</h2><span ng-bind-html="kulit.description | limitTo:300" ng-hide="kulit.description == \'\'"></span><span ng-if="kulit.description.length > 300">...</span></div></div></div><ion-infinite-scroll ng-if="!theEnd"on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab><ion-tab title="SPA"><ion-content><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="spa in spas" ui-sref="app.serviceSpaDetail({\'service_id\':\'{{spa.id}}\'})"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{spa.image}}" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{spa.name}}</h2><p ng-bind-html="spa.description | limitTo:300" style="white-space:normal">...</p></div></div></div><ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab></ion-pane></ion-tabs></ion-view>'), 
+        
+        t.put("templates/services/index.html", '<ion-view view-title="Service" id="service"><ion-nav-buttons side="right"><button class="button button-icon icon ion-ios-search-strong"ng-click="showFilterBar()"></button></ion-nav-buttons><div class="bar bar-subheader item-input-inset"ng-hide="states.searched"><label class="item-input-wrapper item-select"><div class="input-label">Kategori</div><select ng-model="category"ng-options="a.id as a.name for a in categories"ng-change="categoryChange(category)"></select></label></div><ion-content lazy-scroll><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="service in services" ui-sref="app.serviceKulitDetail({\'service_id\':\'{{service.id}}\'})" ng-hide="service.description == \'\'"><img class="service-image" ng-if="service.image" image-lazy-src="https://klinikestetika.com/{{service.image}}" ng-hide="service.image == \'\'" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{service.name}}</h2><span ng-bind-html="service.description | limitTo:300" ng-hide="service.description == \'\'"></span><span ng-if="service.description.length > 300">...</span></div></div></div><ion-infinite-scroll ng-if="!theEnd"on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-view>'), 
+        
+        //t.put("templates/services/index.html", '<ion-view view-title="Service" id="service"><ion-pane><ion-tabs class="tabs-positive tabs-estetika tabs-top"><ion-tab title="Kulit"><ion-content lazy-scroll><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="kulit in kulits" ui-sref="app.serviceKulitDetail({\'service_id\':\'{{kulit.id}}\'})" ng-hide="kulit.description == \'\'"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{kulit.image}}" ng-hide="kulit.image == \'\'" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{kulit.name}}</h2><span ng-bind-html="kulit.description | limitTo:300" ng-hide="kulit.description == \'\'"></span><span ng-if="kulit.description.length > 300">...</span></div></div></div><ion-infinite-scroll ng-if="!theEnd"on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab><ion-tab title="SPA"><ion-content><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="spa in spas" ui-sref="app.serviceSpaDetail({\'service_id\':\'{{spa.id}}\'})"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{spa.image}}" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{spa.name}}</h2><p ng-bind-html="spa.description | limitTo:300" style="white-space:normal">...</p></div></div></div><ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab></ion-pane></ion-tabs></ion-view>'), 
+        //t.put("templates/services/index.html", '<ion-view view-title="Service" id="service"><ion-pane><ion-tabs class="tabs-positive tabs-estetika tabs-top"><ion-tab title="Kulit"><ion-content lazy-scroll><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="kulit in kulits" ui-sref="app.serviceKulitDetail({\'service_id\':\'{{kulit.id}}\'})" ng-hide="kulit.description == \'\'"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{kulit.image}}" ng-hide="kulit.image == \'\'" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{kulit.name}}</h2><span ng-bind-html="kulit.description | limitTo:300" ng-hide="kulit.description == \'\'"></span><span ng-if="kulit.description.length > 300">...</span></div></div></div><ion-infinite-scroll ng-if="!theEnd"on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab><ion-tab title="SPA"><ion-content><div class="row responsive-md services-content"><div class="list spa-post col col-33" ng-repeat="spa in spas" ui-sref="app.serviceSpaDetail({\'service_id\':\'{{spa.id}}\'})"><img class="service-image" image-lazy-src="https://klinikestetika.com/{{spa.image}}" image-lazy-loader="dots"><div class="service-body"><h2 class="title">{{spa.name}}</h2><p ng-bind-html="spa.description | limitTo:300" style="white-space:normal">...</p></div></div></div><ion-infinite-scroll ng-if="!theEnd" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll></ion-content></ion-tab></ion-pane></ion-tabs></ion-view>'), 
+        
         t.put("templates/terms/index.html", '<ion-view view-title="Syarat dan Ketentuan"> <ion-content id="terms"> <ion-list> <ion-item class="item-text-wrap"><h2>Syarat &amp; Ketentuan</h2><p>Sebelum mengakses situs/platform ini Anda diwajibkan untuk membaca <strong>SYARAT &amp; KETENTUAN</strong> di bawah ini:</p><ol class="list-text"><li> Dengan mengakses dan menggunakan semua fitur layanan yang ada di situs ini, Anda dengan otomatis telah menyetujui semua bentuk syarat &amp; ketentuan yang telah ditentukan oleh Klinik Estetika dr. Affandi.</li><li> Semua akses yang menggunakan password bersifat rahasia dan dilindungi/terlindungi hanya untuk pemilik akun. Di luar pemilik akun tidak diizinkan untuk memperoleh/berusaha memperoleh akses ini secara illegal/tidak sah ke dalam situs ini, termasuk area informasi lain yang bersifat pribadi, rahasia dan dilindungi dengan cara apapun tanpa izin khusus yang telah diberikan resmi dari pihak yang berkepentingan. Segala bentuk pelanggaran akan dikenakan sanksi/hukuman sesuai dengan peraturan &amp; undang-undang yang berlaku di Indonesia.</li><li> Situs ini dikhususkan bagi orang dewasa. Bagi Anda yang masih di bawah umur diwajibkan untuk memiliki izin/persetujuan dari orang tua/wali yang dapat bertanggungjawab atas tindakan Anda, bertanggungjawab atas biaya yang terkait dengan pembelian produk dan layanan dan penerimaan dan pemahaman mengenai Syarat &amp; Ketentuan yang tertera. Tanpa persetujuan/perizinan tersebut, semua hal yang dilakukan oleh pihak terkait di luar tanggung jawab Klinik Estetika dr. Affandi.</li><li> Penggunaan Situs dan Layanan: </br> Anda setuju untuk mematuhi setiap ketentuan, pemberitahuan, kebijakan dan instruksi yang terkait dengan penggunaan layanan dan/atau akses ke situs ini sesuai dengan ketentuan Klinik Estetika dr. Affandi, walau tanpa pemberitahuan lebih lanjut.</li><li> Anda dilarang keras untuk:<ol class="list-text-alpha"><li> Memalsukan identitas, memberikan keterangan palsu dan mengakui sebagai orang lain, atau apapun yang bersifat pelanggaran terhadap identitas.</li><li> Menggunakan situs ini untuk tujuan yang illegal/melanggar hukum dan undang-undang yang berlaku di Indonesia.</li><li> Berusaha mendapatkan akses secara paksa termasuk mengganggu dan/atau mengacaukan sistem komputer atau jaringan yang berhubungan dengan situs/platform dan layanan ini.</li><li> Mem-posting, mempromosikan atau mengirimkan materi/konten terlarang melalui situs/dengan mengatasnamakan Klinik Estetika dr. Affandi tanpa sepengetahuan pihak terkait.</li><li> Menggunakan, mengunggah, memasukkan perangkat lunak/material yang dicurigai mengandung virus, komponen yang bersifat destruktif, kode berbahaya atau apapun yang serupa yang dapat merusak data dan situs atau mengganggu akses komputer dan/atau jaringan pelanggan.</li></ol></li><li> Ketersediaan situs dan layanan: </br> Klinik Estetika dr. Affandi dapat meningkatkan, memodifikasi, menghentikan sementara, menghentikan penyediaan, menghapus, baik secara keseluruhan atau sebagian dari situs atau layanan, tanpa memberikan alasan &amp; pemberitahuan sebelumnya, dan tidak bertanggungjawab jika peningkatan, modifikasi, suspensi atau penghapusan tersebut mencegah Anda mengakses situs atau bagian dari layanan.</li><li> Pihak Klinik Estetika dr. Affandi mempunyai hak penuh atas situs ini termasuk:<ol class="list-text-alpha"><li> Memantau, menyaring atau mengontrol setiap kegiatan, isi atau materi pada situs dan/atau melalui Layanan. Hal tersebut termasuk/berarti, kami dapat menyelidiki setiap pelanggaran terhadap syarat dan ketentuan yang tercantum di sini dan dapat mengambil tindakan apapun yang dianggap sesuai atau tepat;</li><li> mencegah atau membatasi akses pelanggan untuk keperluan yang kami anggap melebihi kapasitas;</li><li> melaporkan kegiatan yang dicurigai sebagai pelanggaran terhadap hukum yang berlaku, undang-undang atau peraturan kepada pihak yang berwenang serta bekerjasama dengan pihak berwenang tersebut; dan/atau</li><li> meminta informasi dan data dari Anda sehubungan dengan penggunaan Layanan dan/atau akses situs setiap saat, dan sebagai pelaksanaan hak Klinik Estetika dr. Affandi jika Anda menolak untuk memberikan/mengungkapkan informasi/data tersebut, atau jika Anda memberikan informasi tidak akurat, menyesatkan, penipuan data dan/atau informasi, atau jika kami memiliki alasan yang cukup mencurigai Anda telah menyediakan informasi tidak akurat, menyesatkan atau penipuan data dan/atau informasi.</li></ol></li><li> Dengan ini Anda telah menyetujui untuk memberikan izin untuk dapat menggunakan informasi yang telah kami terima termasuk tapi tidak terbatas pada, pertanyaan, ulasan, komentar, dan saran. Pihak Klinik Estetika dr. Affandi akan mungkin, namun tidak diwajibkan untuk mempublikasikan, menghapus atau mengubah informasi yang telah Anda berikan perihal submisi.</li><li> Anda menyetujui dan mengesahkan untuk setiap informasi yang kami terima dapat dipergunakan untuk keperluan promosi dan pengiriman informasi.</li></ol><hr><h2>Syarat &amp; Ketentuan e-commerce</h2><ol class="list-text"><li> Dengan ini, kami menganggap Anda telah menyetujui setiap syarat yang telah ditentukan yang berkaitan dengan pembelian produk dari Klinik Estetika dr. Affandi.</li><li> Anda menyadari sepenuhnya bahwa produk yang kami jual tidak bersifat permanen, instan ataupun 100% akurat. Kami tetap menyarankan adanya konsultasi apabila ditemukan adanya ketidak-cocokan terhadap produk Klinik Estetika dr. Affandi.</li><li> Anda menyetujui dan menjamin bahwa Anda tidak mengandalkan hanya pada setiap syarat, kententuan, garansi, usaha, bujukan maupun representasi yang belum disetujui oleh pihak konsultan/Dokter dan Anda.</li><li> Kami tidak memberikan jaminan 100% untuk setiap keluhan, masalah, reaksi yang dapat timbul setelah menggunakan produk kami merupakan tanggung jawab pihak kami sepenuhnya. Kami tidak bertanggungjawab atas setiap ketidaksesuaian pelanggan, kelalaian, pemakaian yang tidak wajar, penanganan atau pemakaian yang salah, perawatan yang salah, ketidakcocokkan, pengaruh kimia, kegagalan atau kelalaian Anda dalam menggunakan produk kami. Resiko bisa diminimalisir dengan mengikuti arahan dokter. Untuk memperkecil munculnya efek samping yang tidak diharapkan, maka pasien diminta mengikuti saran dan petunjuk dari Dokter.</li><li> Setiap pembelanjaan yang Anda lakukan harus dilakukan dalam keadaan sadar dan tidak dalam pengaruh apapun.Klinik Estetika dr. Affandi tidak bertanggungjawab atas adanya pembelian yang telah/melalui proses terakhir atau pembayaran yang Anda lakukan.</li></ol><p> Pihak Klinik Estetika dr. Affandi dapat mengubah/merevisi semua syarat dan ketentuan yang tertera tanpa pemberitahuan terlebih dahulu. Untuk setiap pelanggaran yang dilakukan akan mendapatkan hukuman/sanksi berdasarkan hukum &amp; Undang-undang yang berlaku di Indonesia.</p> </ion-item> </ion-list> </ion-content> </ion-view>'), 
         t.put("templates/users/profile.html", '<ion-view view-title="Profil"> <ion-content><div class="list list-inset"><div class="item item-icon-left"> <i class="icon ion-ios-person-outline"></i> <strong>Foto Profil</strong></div><div class="item item-image"> <img id="profilePicture" class="profilePicture" ng-src="{{profileData.picture}}"></div> <button class="button button-block button-calm" ng-click="getProfPic()"><strong>Ubah Foto Profil</strong></button></div><div class="list list-inset"><div class="item item-icon-left"> <i class="icon ion-ios-list-outline"></i> <strong>Informasi</strong></div><form ng-submit="changeProfile()"> <label class="item item-input item-floating-label"> <span class="input-label"><strong>Nama Lengkap</strong></span> <input type="text" placeholder="Nama Lengkap" ng-model="profileData.full_name"> </label> <label class="item item-input item-select"><div class="input-label"><strong>Jenis Kelamin</strong></div> <select ng-model="profileData.gender"><option value="P">Wanita</option><option value="L">Pria</option> </select> </label> <label class="item item-input item-floating-label"> <span class="input-label"><strong>Alamat Email</strong></span> <input type="email" placeholder="Alamat Email" ng-model="profileData.email"> </label> <label class="item item-input item-stacked-label"> <span class="input-label"><strong>No Handphone</strong></span> <input type="tel" placeholder="No Handphone" ng-model="profileData.phone"></label> <label class="item item-input item-stacked-label"> <span class="input-label"><strong>Tanggal Lahir</strong></span> <input type="date" ng-model="profileData.dob"> </label> <label class="item item-input item-select"><div class="input-label"><strong>Provinsi</strong></div> <select ng-model="profileData.province" ng-options="a.id as a.name for a in profileData.provinces" ng-change="getCity(profileData.province)"> </select> </label> <label class="item item-input item-select"><div class="input-label"><strong>Kota</strong></div> <select ng-model="profileData.city" ng-options="a.id as a.name for a in profileData.cities"> </select> </label> <label class="item item-input item-stacked-label"> <span class="input-label"><strong>Kode Pos</strong></span> <input type="number" placeholder="Kode Pos" ng-model="profileData.postal_code"> </label> <label class="item item-input item-floating-label"> <span class="input-label"><strong>Alamat</strong></span><textarea msd-elastic="" type="text" placeholder="Alamat" ng-model="profileData.address"></textarea></label> <button class="button button-block button-calm" type="submit"><strong>Simpan Perubahan</strong></button></form></div><div class="list list-inset"><div class="item item-icon-left"> <i class="icon ion-ios-locked-outline"></i> <strong>Ubah Password</strong></div><form ng-submit="changePassword()"> <label class="item item-input item-stacked-label"> <span class="input-label"><strong>Password Lama</strong></span> <input type="password" placeholder="Password Lama" ng-model="profileData.passwordLama" autocomplete="off"></label> <label class="item item-input item-stacked-label"> <span class="input-label"><strong>Password Baru</strong></span> <input type="password" placeholder="Password Baru" ng-model="profileData.passwordBaru" autocomplete="off"></label> <button class="button button-block button-calm" type="submit"><strong>Ubah Password</strong></button></form></div> </ion-content> </ion-view>'), 
         t.put("templates/videos/index.html", '<ion-view cache-view="false" view-title="Video Consultation" id="video-consultation"> <ion-content style="margin-bottom:0px;padding-bottom:0px;"> <ion-refresher pulling-text="Pull to refresh..." on-refresh="refreshAvailableSessions()"></ion-refresher> <ion-list ng-show="bookedSessionData"> <ion-item class="item-divider">My Booking</ion-item> <ion-item class="item-button-right" ng-click="readyToConsultation(bookedSessionData)"><h2>{{bookedSessionData.date}}</h2><p>{{bookedSessionData.start_time}} - {{bookedSessionData.end_time}} {{bookedSessionData.time_remaining}}</p> <button class="button button-assertive" ng-click="cancelBook($event)">Cancel</button> </ion-item> <br /> </ion-list> <ion-list> <ion-item class="item-divider">Available bookings</ion-item><div ng-repeat="item in availableSessions"> <ion-item class="item-stable" ng-click="toggleGroup(item)" ng-class="{active: isGroupShown(item)}"> <i class="icon" ng-class="isGroupShown(item) ? \'ion-minus\' : \'ion-plus\'"></i> &nbsp; {{item.date}}</ion-item> <ion-item ng-repeat="session in item.sessions" ng-show="isGroupShown(item)" class="item-button-right"><h2>{{session.start_time}} - {{session.end_time}}</h2><p>{{session.status}}</p> <button class="button button-positive" ng-click="book(session)" ng-hide="isSessionFinished(session)">Book</button> </ion-item></div> </ion-list> </ion-content> </ion-view>'), 
