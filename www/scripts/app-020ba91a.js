@@ -1073,9 +1073,10 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
     }, function(t) {
         console.error("ERR", t)
     }), i.checkPromoCode = function() {
-        var promo_code = i.shippingData.promo_code
+        var promo_code = i.shippingData.promo_code.toString()
+        promo_code = promo_code.toUpperCase()
         if (i.shippingData.promo_code == null || i.shippingData.promo_code == undefined){
-            i.shippingData.promo_code = 0;
+            i.shippingData.promo_code = "";
         }
         n.show()
         o.get("https://klinikestetika.com/api/v1/estetika/promos/coupons/" + promo_code).then(function(o){
@@ -1086,6 +1087,7 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
             if (o.data.data.is_valid == 0){
                 alert(o.data.data.message)
                 i.shippingData.discount = 0
+                i.shippingData.total_price = i.getTotalPrice(i.cart_total, i.shippingData.shipping_price, i.shippingData.discount)
                 n.hide()
             }else{
                 alert(o.data.data.message)
@@ -1312,7 +1314,7 @@ moment.locale("id"), angular.module("estetika", ["ionic", "ngCordova", "ngResour
             password_baru: t.profileData.passwordBaru,
             mobile_session: a.get("mobile_session")
         }).then(function(n) {
-            t.showToast(1 == n.data ? "Berhasil Mengubah Password" : "Gagal Merubah Password", "long", "bottom"), t.profileData.passwordLama = "", t.profileData.passwordBaru = ""
+            t.showToast(1 == n.data ? "Berhasil Mengubah Password": "Gagal Merubah Password", "long", "bottom"), t.profileData.passwordLama = "", t.profileData.passwordBaru = ""
         }, function(t) {
             console.error("ERR", t)
         })
